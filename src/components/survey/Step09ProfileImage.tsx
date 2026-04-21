@@ -19,7 +19,8 @@ export default function Step09ProfileImage() {
 
     if (!result.canceled && result.assets[0]) {
       const asset = result.assets[0];
-      const fileName = `profile_${Date.now()}.jpg`;
+      const ext = asset.uri.split('.').pop()?.toLowerCase() || 'jpg';
+      const fileName = `profile_${Date.now()}.${ext}`;
       const dest = `${FileSystem.documentDirectory}${fileName}`;
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
       update({ profileImageUri: dest });

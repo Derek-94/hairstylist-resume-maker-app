@@ -14,7 +14,7 @@ export default function Step07Education() {
   };
 
   return (
-    <StepLayout step={7} canNext={false} onNext={() => {}}>
+    <StepLayout step={7} canNext={!!data.education} onNext={() => router.push('/survey/8')}>
       <QuestionTitle>최종 학력을 선택해주세요</QuestionTitle>
       <View style={{ gap: 10 }}>
         {EDUCATION_OPTIONS.map((option) => (

@@ -5,7 +5,7 @@ import { useResumeStore } from '../src/store/resume';
 
 export default function Home() {
   const insets = useSafeAreaInsets();
-  const { data } = useResumeStore();
+  const { data, reset } = useResumeStore();
   const hasData = data.name.length > 0;
 
   return (
@@ -46,7 +46,7 @@ export default function Home() {
         )}
 
         <TouchableOpacity
-          onPress={() => router.push('/survey/1')}
+          onPress={() => { reset(); router.push('/survey/1'); }}
           style={{
             height: 60,
             borderRadius: 16,

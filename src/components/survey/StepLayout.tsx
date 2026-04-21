@@ -94,22 +94,28 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         )}
 
         {/* Next / Done button */}
-        <TouchableOpacity
-          onPress={canNext ? onNext : undefined}
-          style={{
-            flex: onSkip ? undefined : 1,
-            width: onSkip ? 52 : undefined,
-            height: 52,
-            borderRadius: onSkip ? 26 : 14,
-            backgroundColor: canNext ? '#c084fc' : '#1a1a1a',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: canNext ? '#fff' : '#444', fontSize: 18 }}>
-            {nextLabel ?? '→'}
-          </Text>
-        </TouchableOpacity>
+        {(() => {
+          const isArrow = !nextLabel;
+          const isSmallCircle = isArrow && !!onSkip;
+          return (
+            <TouchableOpacity
+              onPress={canNext ? onNext : undefined}
+              style={{
+                flex: isSmallCircle ? undefined : 1,
+                width: isSmallCircle ? 52 : undefined,
+                height: 52,
+                borderRadius: isSmallCircle ? 26 : 14,
+                backgroundColor: canNext ? '#c084fc' : '#1a1a1a',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ color: canNext ? '#fff' : '#444', fontSize: 18 }}>
+                {nextLabel ?? '→'}
+              </Text>
+            </TouchableOpacity>
+          );
+        })()}
       </View>
     </KeyboardAvoidingView>
   );

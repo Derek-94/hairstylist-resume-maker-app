@@ -16,7 +16,7 @@ export default function Step11Career() {
   };
 
   return (
-    <StepLayout step={11} canNext={false} onNext={() => {}}>
+    <StepLayout step={11} canNext={!!data.careerLevel} onNext={() => router.push('/survey/12')}>
       <QuestionTitle>경력을 선택해주세요</QuestionTitle>
       <View style={{ gap: 10 }}>
         {OPTIONS.map(([value, label]) => (

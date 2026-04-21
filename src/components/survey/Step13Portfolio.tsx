@@ -21,7 +21,8 @@ export default function Step13Portfolio() {
 
     if (!result.canceled && result.assets[0]) {
       const asset = result.assets[0];
-      const fileName = `portfolio_${Date.now()}_${Math.random().toString(36).slice(2)}.jpg`;
+      const ext = asset.uri.split('.').pop()?.toLowerCase() || 'jpg';
+      const fileName = `portfolio_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
       const dest = `${FileSystem.documentDirectory}${fileName}`;
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
       setItems(prev => [...prev, { uri: dest, width: asset.width, height: asset.height }]);

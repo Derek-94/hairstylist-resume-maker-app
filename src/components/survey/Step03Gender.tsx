@@ -18,7 +18,7 @@ export default function Step03Gender() {
   };
 
   return (
-    <StepLayout step={3} canNext={false} onNext={() => {}} >
+    <StepLayout step={3} canNext={!!data.gender} onNext={() => router.push('/survey/4')}>
       <QuestionTitle>성별을 선택해주세요</QuestionTitle>
       <View style={{ flexDirection: 'row', gap: 12 }}>
         {OPTIONS.map(({ label, value }) => (
