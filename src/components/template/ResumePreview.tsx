@@ -70,36 +70,32 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
       <View style={S.page} ref={pageRef} collapsable={false}>
 
         {/* Header: profile photo + basic info */}
-        <View style={{ flexDirection: 'row', gap: 18, marginBottom: 4 }}>
-          {/* Profile photo */}
-          <View style={{ width: 110, height: 110, borderRadius: 8, backgroundColor: '#f0f0f0', overflow: 'hidden', flexShrink: 0 }}>
+        <View style={{ flexDirection: 'row', gap: 16, marginBottom: 4, alignItems: 'flex-end' }}>
+          {/* Profile photo — half the container width */}
+          <View style={{ flex: 1, aspectRatio: 1, borderRadius: 8, backgroundColor: '#f0f0f0', overflow: 'hidden' }}>
             {data.profileImageUri ? (
-              <Image source={{ uri: data.profileImageUri }} style={{ width: 110, height: 110 }} resizeMode="cover" />
+              <Image source={{ uri: data.profileImageUri }} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
             ) : (
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 32, color: '#ccc' }}>👤</Text>
+                <Text style={{ fontSize: 40, color: '#ccc' }}>👤</Text>
               </View>
             )}
           </View>
 
-          {/* Name + meta — height matches photo */}
-          <View style={{ flex: 1, height: 110, justifyContent: 'space-between' }}>
-            <View>
-              <Text style={{ fontSize: 9, color: '#aaa', letterSpacing: 1.5, fontWeight: '600', marginBottom: 2 }}>
-                HAIR STYLIST
-              </Text>
-              <Text style={{ fontSize: 22, fontWeight: '800', color: '#111', letterSpacing: -0.5 }}>
-                {data.name || '이름'}
-              </Text>
-            </View>
-            <View>
-              {data.birthDate && (
-                <Text style={S.metaText}>{formatBirth(data.birthDate)}{data.gender ? ` · ${data.gender === '여' ? '여성' : '남성'}` : ''}</Text>
-              )}
-              {data.phone && <Text style={S.metaText}>{data.phone}</Text>}
-              {data.email && <Text style={S.metaText}>{data.email}</Text>}
-              {data.address && <Text style={S.metaText}>{data.address}</Text>}
-            </View>
+          {/* Name + meta — bottom-aligned */}
+          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            <Text style={{ fontSize: 9, color: '#aaa', letterSpacing: 1.5, fontWeight: '600', marginBottom: 2 }}>
+              HAIR STYLIST
+            </Text>
+            <Text style={{ fontSize: 20, fontWeight: '800', color: '#111', letterSpacing: -0.5, marginBottom: 4 }}>
+              {data.name || '이름'}
+            </Text>
+            {data.birthDate && (
+              <Text style={S.metaText}>{formatBirth(data.birthDate)}{data.gender ? ` · ${data.gender === '여' ? '여성' : '남성'}` : ''}</Text>
+            )}
+            {data.phone && <Text style={S.metaText}>{data.phone}</Text>}
+            {data.email && <Text style={S.metaText}>{data.email}</Text>}
+            {data.address && <Text style={S.metaText}>{data.address}</Text>}
           </View>
         </View>
 

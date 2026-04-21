@@ -75,17 +75,15 @@ async function buildResumeHtml(data: ResumeData): Promise<string> {
 <div class="page">
 
   <!-- 헤더 -->
-  <div style="display:flex;flex-direction:row;margin-bottom:4px;height:110px;">
-    <div style="flex-shrink:0;margin-right:20px;">
+  <div style="display:flex;flex-direction:row;margin-bottom:16px;">
+    <div style="flex-shrink:0;margin-right:24px;">
       ${profileB64
-        ? `<img src="data:${profileMime};base64,${profileB64}" style="width:110px;height:110px;border-radius:8px;object-fit:cover;display:block;" />`
-        : `<div style="width:110px;height:110px;border-radius:8px;background:#f0f0f0;"></div>`}
+        ? `<img src="data:${profileMime};base64,${profileB64}" style="width:240px;height:240px;border-radius:10px;object-fit:cover;display:block;" />`
+        : `<div style="width:240px;height:240px;border-radius:10px;background:#f0f0f0;"></div>`}
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;height:110px;">
-      <div>
-        <div style="font-size:10px;font-weight:600;color:#aaa;letter-spacing:2px;margin-bottom:3px;">HAIR STYLIST</div>
-        <div style="font-size:28px;font-weight:800;color:#111;">${data.name}</div>
-      </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:240px;">
+      <div style="font-size:10px;font-weight:600;color:#aaa;letter-spacing:2px;margin-bottom:4px;">HAIR STYLIST</div>
+      <div style="font-size:28px;font-weight:800;color:#111;margin-bottom:8px;">${data.name}</div>
       <div class="meta-text">
         ${data.birthDate ? `${formatDate(data.birthDate)}${data.gender ? ` &middot; ${data.gender === '여' ? '여성' : '남성'}` : ''}<br>` : ''}
         ${data.phone ? `${data.phone}<br>` : ''}
