@@ -1,50 +1,83 @@
 import { useState } from 'react';
+import { View, Text } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
-import UnderlineInput from './UnderlineInput';
 
-function formatBirthDate(raw: string): string {
-  const digits = raw.replace(/\D/g, '').slice(0, 8);
-  if (digits.length <= 4) return digits;
-  if (digits.length <= 6) return `${digits.slice(0, 4)} / ${digits.slice(4)}`;
-  return `${digits.slice(0, 4)} / ${digits.slice(4, 6)} / ${digits.slice(6)}`;
+function stringToDate(s: string): Date {
+  const d = s.replace(/\D/g, '');
+  if (d.length === 8) {
+    return new Date(
+      parseInt(d.slice(0, 4)),
+      parseInt(d.slice(4, 6)) - 1,
+      parseInt(d.slice(6, 8))
+    );
+  }
+  // default to 25 years ago
+  const def = new Date();
+  def.setFullYear(def.getFullYear() - 25);
+  return def;
 }
 
-function isValidDate(formatted: string): boolean {
-  const digits = formatted.replace(/\D/g, '');
-  if (digits.length !== 8) return false;
-  const y = parseInt(digits.slice(0, 4));
-  const m = parseInt(digits.slice(4, 6));
-  const d = parseInt(digits.slice(6, 8));
-  return y >= 1900 && y <= 2099 && m >= 1 && m <= 12 && d >= 1 && d <= 31;
+function dateToString(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}${m}${day}`;
+}
+
+function displayDate(s: string): string {
+  const d = s.replace(/\D/g, '');
+  if (d.length !== 8) return '';
+  return `${d.slice(0, 4)}년 ${d.slice(4, 6)}월 ${d.slice(6)}일`;
 }
 
 export default function Step02Birth() {
   const { data, update } = useResumeStore();
-  const [value, setValue] = useState(data.birthDate);
+  const [date, setDate] = useState<Date>(stringToDate(data.birthDate));
+  const [selected, setSelected] = useState(data.birthDate.length > 0);
 
-  const handleChange = (text: string) => {
-    setValue(formatBirthDate(text));
+  const handleChange = (_: unknown, d?: Date) => {
+    if (d) {
+      setDate(d);
+      setSelected(true);
+    }
   };
 
   const handleNext = () => {
-    update({ birthDate: value });
+    update({ birthDate: dateToString(date) });
     router.push('/survey/3');
   };
 
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 14);
+  const minDate = new Date(1930, 0, 1);
+
   return (
-    <StepLayout step={2} canNext={isValidDate(value)} onNext={handleNext}>
+    <StepLayout step={2} canNext={selected} onNext={handleNext}>
       <QuestionTitle>생년월일을 알려주세요</QuestionTitle>
-      <UnderlineInput
-        placeholder="yyyy / mm / dd"
-        value={value}
-        onChangeText={handleChange}
-        keyboardType="number-pad"
-        autoFocus
-        hint="숫자만 입력하면 자동으로 형식이 완성돼요"
-      />
+
+      {selected && (
+        <Text style={{ color: '#c084fc', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+          {displayDate(dateToString(date))}
+        </Text>
+      )}
+
+      <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="spinner"
+          onChange={handleChange}
+          maximumDate={maxDate}
+          minimumDate={minDate}
+          locale="ko-KR"
+          textColor="#ffffff"
+          style={{ height: 200 }}
+        />
+      </View>
     </StepLayout>
   );
 }

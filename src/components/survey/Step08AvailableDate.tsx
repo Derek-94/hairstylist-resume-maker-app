@@ -1,51 +1,86 @@
 import { useState } from 'react';
+import { View, Text } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
-import UnderlineInput from './UnderlineInput';
 
-function formatDate(raw: string): string {
-  const digits = raw.replace(/\D/g, '').slice(0, 8);
-  if (digits.length <= 4) return digits;
-  if (digits.length <= 6) return `${digits.slice(0, 4)} / ${digits.slice(4)}`;
-  return `${digits.slice(0, 4)} / ${digits.slice(4, 6)} / ${digits.slice(6)}`;
+function stringToDate(s: string): Date {
+  const d = s.replace(/\D/g, '');
+  if (d.length === 8) {
+    return new Date(
+      parseInt(d.slice(0, 4)),
+      parseInt(d.slice(4, 6)) - 1,
+      parseInt(d.slice(6, 8))
+    );
+  }
+  return new Date();
 }
 
-function isValidDate(formatted: string): boolean {
-  const digits = formatted.replace(/\D/g, '');
-  if (digits.length !== 8) return false;
-  const y = parseInt(digits.slice(0, 4));
-  const m = parseInt(digits.slice(4, 6));
-  const d = parseInt(digits.slice(6, 8));
-  return y >= 2020 && y <= 2099 && m >= 1 && m <= 12 && d >= 1 && d <= 31;
+function dateToString(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}${m}${day}`;
+}
+
+function displayDate(s: string): string {
+  const d = s.replace(/\D/g, '');
+  if (d.length !== 8) return '';
+  return `${d.slice(0, 4)}년 ${d.slice(4, 6)}월 ${d.slice(6)}일`;
 }
 
 export default function Step08AvailableDate() {
   const { data, update } = useResumeStore();
-  const [value, setValue] = useState(data.availableStartDate);
+  const [date, setDate] = useState<Date>(stringToDate(data.availableStartDate));
+  const [selected, setSelected] = useState(data.availableStartDate.length > 0);
+
+  const handleChange = (_: unknown, d?: Date) => {
+    if (d) {
+      setDate(d);
+      setSelected(true);
+    }
+  };
 
   const handleNext = () => {
-    update({ availableStartDate: value });
+    update({ availableStartDate: dateToString(date) });
     router.push('/survey/9');
   };
 
+  const skip = () => {
+    update({ availableStartDate: '' });
+    router.push('/survey/9');
+  };
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() + 3);
+
   return (
-    <StepLayout
-      step={8}
-      canNext={isValidDate(value)}
-      onNext={handleNext}
-      onSkip={() => { update({ availableStartDate: '' }); router.push('/survey/9'); }}
-    >
+    <StepLayout step={8} canNext={selected} onNext={handleNext} onSkip={skip}>
       <QuestionTitle>입사 가능일을 알려주세요</QuestionTitle>
-      <UnderlineInput
-        placeholder="yyyy / mm / dd"
-        value={value}
-        onChangeText={(t) => setValue(formatDate(t))}
-        keyboardType="number-pad"
-        autoFocus
-        hint="즉시 입사 가능하다면 오늘 날짜를 입력해주세요"
-      />
+
+      {selected && (
+        <Text style={{ color: '#c084fc', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+          {displayDate(dateToString(date))}
+        </Text>
+      )}
+
+      <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="spinner"
+          onChange={handleChange}
+          minimumDate={today}
+          maximumDate={maxDate}
+          locale="ko-KR"
+          textColor="#ffffff"
+          style={{ height: 200 }}
+        />
+      </View>
     </StepLayout>
   );
 }
