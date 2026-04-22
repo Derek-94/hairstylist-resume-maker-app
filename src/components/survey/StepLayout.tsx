@@ -92,8 +92,8 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
           <Text style={{ color: '#fff', fontSize: 18 }}>←</Text>
         </TouchableOpacity>
 
-        {/* Skip button (optional steps) */}
-        {onSkip && (
+        {/* Skip button (optional steps, hidden once content is entered) */}
+        {onSkip && !canNext && (
           <TouchableOpacity
             onPress={onSkip}
             style={{
@@ -112,7 +112,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         {/* Next / Done button */}
         {(() => {
           const isArrow = !nextLabel;
-          const isSmallCircle = isArrow && !!onSkip;
+          const isSmallCircle = isArrow && !!onSkip && !canNext;
           return (
             <TouchableOpacity
               onPress={canNext ? onNext : undefined}
