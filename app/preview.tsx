@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useResumeStore } from '../src/store/resume';
 import ResumePreview from '../src/components/template/ResumePreview';
@@ -43,6 +43,17 @@ export default function Preview() {
     } catch (e: any) {
       const msg: string = e?.message ?? '';
       if (msg.includes('cancel') || msg.includes('Cancel') || msg.includes('dismissed')) return;
+      if (msg === 'PHOTOS_PERMISSION_DENIED') {
+        Alert.alert(
+          '사진 접근 권한이 필요해요',
+          '아이폰 설정 > Clipr > 사진을 탭한 후\n"모두" 또는 "추가만"으로 변경해주세요.',
+          [
+            { text: '설정으로 이동', onPress: () => Linking.openSettings() },
+            { text: '닫기', style: 'cancel' },
+          ]
+        );
+        return;
+      }
       Alert.alert('오류', msg || '다시 시도해주세요');
     } finally {
       setLoading(null);

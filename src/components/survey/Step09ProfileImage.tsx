@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, Alert, Linking } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
@@ -15,7 +15,14 @@ export default function Step09ProfileImage() {
     if (source === 'camera') {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('카메라 권한이 필요해요', '설정에서 카메라 접근을 허용해주세요');
+        Alert.alert(
+          '카메라 접근 권한이 필요해요',
+          '아이폰 설정 > Clipr > 카메라를 켜주세요.',
+          [
+            { text: '설정으로 이동', onPress: () => Linking.openSettings() },
+            { text: '닫기', style: 'cancel' },
+          ]
+        );
         return;
       }
     }

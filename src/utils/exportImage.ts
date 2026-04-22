@@ -9,7 +9,7 @@ export async function saveResumeImages(
   page2Ref?: RefObject<View | null>,
 ): Promise<string[]> {
   const { status } = await MediaLibrary.requestPermissionsAsync();
-  if (status !== 'granted') throw new Error('사진 앱 저장 권한이 필요해요');
+  if (status !== 'granted') throw new Error('PHOTOS_PERMISSION_DENIED');
 
   const uris: string[] = [];
 
