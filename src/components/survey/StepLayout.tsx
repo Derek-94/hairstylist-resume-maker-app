@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { useResumeStore } from '../../store/resume';
 
 interface Props {
   step: number;
@@ -15,6 +16,7 @@ interface Props {
 export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, nextLabel, children }: Props) {
   const insets = useSafeAreaInsets();
   const progress = step / total;
+  const { isEditMode, setEditMode } = useResumeStore();
 
   return (
     <KeyboardAvoidingView
@@ -38,11 +40,16 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Step counter */}
-        <View style={{ paddingTop: 16, paddingHorizontal: 24 }}>
+        {/* Step counter + 미리보기로 돌아가기 */}
+        <View style={{ paddingTop: 16, paddingHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={{ color: '#555', fontSize: 13, fontWeight: '500', letterSpacing: 1 }}>
             {String(step).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </Text>
+          {isEditMode && (
+            <TouchableOpacity onPress={() => { setEditMode(false); router.replace('/preview'); }}>
+              <Text style={{ color: '#c084fc', fontSize: 13, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Content */}
@@ -63,7 +70,16 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
       >
         {/* Back button */}
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={() => {
+            if (isEditMode && step > 1) {
+              router.replace(`/survey/${step - 1}`);
+            } else if (isEditMode) {
+              setEditMode(false);
+              router.replace('/preview');
+            } else {
+              router.back();
+            }
+          }}
           style={{
             width: 52,
             height: 52,

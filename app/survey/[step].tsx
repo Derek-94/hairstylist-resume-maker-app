@@ -1,4 +1,5 @@
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams, router, Stack } from 'expo-router';
+import { useResumeStore } from '../../src/store/resume';
 import Step01Name from '../../src/components/survey/Step01Name';
 import Step02Birth from '../../src/components/survey/Step02Birth';
 import Step03Gender from '../../src/components/survey/Step03Gender';
@@ -33,6 +34,7 @@ const STEPS: Record<number, React.ComponentType> = {
 
 export default function SurveyStep() {
   const { step } = useLocalSearchParams<{ step: string }>();
+  const { isEditMode } = useResumeStore();
   const stepNum = Number(step);
   const StepComponent = STEPS[stepNum];
 
@@ -41,5 +43,10 @@ export default function SurveyStep() {
     return null;
   }
 
-  return <StepComponent />;
+  return (
+    <>
+      <Stack.Screen options={{ gestureEnabled: !isEditMode }} />
+      <StepComponent />
+    </>
+  );
 }

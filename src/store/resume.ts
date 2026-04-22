@@ -24,6 +24,8 @@ interface ResumeStore {
   data: ResumeData;
   update: (partial: Partial<ResumeData>) => void;
   reset: () => void;
+  isEditMode: boolean;
+  setEditMode: (v: boolean) => void;
 }
 
 export const useResumeStore = create<ResumeStore>()(
@@ -33,10 +35,13 @@ export const useResumeStore = create<ResumeStore>()(
       update: (partial) =>
         set((state) => ({ data: { ...state.data, ...partial } })),
       reset: () => set({ data: defaultData }),
+      isEditMode: false,
+      setEditMode: (v) => set({ isEditMode: v }),
     }),
     {
       name: 'resume-storage',
       storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => ({ data: state.data }),
     }
   )
 );

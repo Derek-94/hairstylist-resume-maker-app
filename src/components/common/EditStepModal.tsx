@@ -1,8 +1,16 @@
-import { View, Text, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { useEffect, useRef } from 'react';
+import {
+  View, Text, TouchableOpacity, Modal, ScrollView,
+  Animated, PanResponder, Dimensions, Pressable, StyleSheet,
+} from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useResumeStore } from '../../store/resume';
 import { CAREER_LABELS, ResumeData } from '../../types/resume';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SHEET_MAX = SCREEN_HEIGHT * 0.8;
+const DISMISS_THRESHOLD = 120;
 
 interface Props {
   visible: boolean;
@@ -28,87 +36,142 @@ const STEPS: { step: number; label: string; getValue: (d: ResumeData) => string 
 
 export default function EditStepModal({ visible, onClose }: Props) {
   const insets = useSafeAreaInsets();
-  const { data } = useResumeStore();
+  const { data, setEditMode } = useResumeStore();
 
-  const goTo = (step: number) => {
+  const backdropOpacity = useRef(new Animated.Value(0)).current;
+  const sheetTranslateY = useRef(new Animated.Value(SHEET_MAX)).current;
+
+  useEffect(() => {
+    if (visible) {
+      sheetTranslateY.setValue(SHEET_MAX);
+      backdropOpacity.setValue(0);
+      Animated.parallel([
+        Animated.timing(backdropOpacity, { toValue: 1, duration: 300, useNativeDriver: true }),
+        Animated.spring(sheetTranslateY, { toValue: 0, damping: 25, stiffness: 200, useNativeDriver: true }),
+      ]).start();
+    }
+  }, [visible]);
+
+  const dismissRef = useRef<() => void>(() => {});
+
+  const dismiss = () => {
+    sheetTranslateY.stopAnimation();
+    backdropOpacity.stopAnimation();
+    Animated.parallel([
+      Animated.timing(backdropOpacity, { toValue: 0, duration: 250, useNativeDriver: true }),
+      Animated.timing(sheetTranslateY, { toValue: SHEET_MAX, duration: 300, useNativeDriver: true }),
+    ]).start(() => onClose());
+  };
+
+  dismissRef.current = dismiss;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (_e, gs) => {
+        if (gs.dy > 0) {
+          sheetTranslateY.setValue(gs.dy);
+          backdropOpacity.setValue(1 - gs.dy / SHEET_MAX);
+        }
+      },
+      onPanResponderRelease: (_e, gs) => {
+        if (gs.dy > DISMISS_THRESHOLD || gs.vy > 0.5) {
+          dismissRef.current();
+        } else {
+          Animated.parallel([
+            Animated.spring(sheetTranslateY, { toValue: 0, damping: 40, stiffness: 300, overshootClamping: true, useNativeDriver: true }),
+            Animated.timing(backdropOpacity, { toValue: 1, duration: 150, useNativeDriver: true }),
+          ]).start();
+        }
+      },
+    })
+  ).current;
+
+  const goTo = (step: number, editMode = false) => {
     onClose();
-    router.push(`/survey/${step}`);
+    setEditMode(editMode);
+    if (editMode) {
+      router.replace(`/survey/${step}`);
+    } else {
+      router.push(`/survey/${step}`);
+    }
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
-      <TouchableOpacity
-        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}
-        activeOpacity={1}
-        onPress={onClose}
-      />
-      <View style={{
-        backgroundColor: '#0f0f0f',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        paddingBottom: insets.bottom + 16,
-        maxHeight: '80%',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-      }}>
-        {/* Handle */}
-        <View style={{ alignItems: 'center', paddingTop: 12, paddingBottom: 8 }}>
-          <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: '#333' }} />
-        </View>
+    <Modal animationType="none" transparent visible={visible} statusBarTranslucent presentationStyle="overFullScreen">
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        {/* Backdrop */}
+        <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(0,0,0,0.6)', opacity: backdropOpacity }]}>
+          <Pressable style={{ flex: 1 }} onPress={dismiss} />
+        </Animated.View>
 
-        <Text style={{ color: '#fff', fontSize: 17, fontWeight: '700', paddingHorizontal: 20, paddingBottom: 12 }}>
-          어디를 수정할까요?
-        </Text>
+        {/* Sheet */}
+        <Animated.View style={{
+          backgroundColor: '#0f0f0f',
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          paddingBottom: insets.bottom + 16,
+          maxHeight: '80%',
+          transform: [{ translateY: sheetTranslateY }],
+        }}>
+          {/* Handle (drag zone) */}
+          <View style={{ alignItems: 'center', paddingTop: 12, paddingBottom: 8 }} {...panResponder.panHandlers}>
+            <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: '#333' }} />
+          </View>
 
-        <ScrollView>
-          {/* 처음부터 */}
-          <TouchableOpacity
-            onPress={() => goTo(1)}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingHorizontal: 20,
-              paddingVertical: 16,
-              borderBottomWidth: 1,
-              borderBottomColor: '#1a1a1a',
-            }}
-          >
-            <Text style={{ color: '#c084fc', fontSize: 16, fontWeight: '600' }}>처음부터 검토하기</Text>
-            <Text style={{ color: '#555', fontSize: 14 }}>1번부터 →</Text>
-          </TouchableOpacity>
+          <Text style={{ color: '#fff', fontSize: 17, fontWeight: '700', paddingHorizontal: 20, paddingBottom: 12 }}>
+            어디를 수정할까요?
+          </Text>
 
-          {STEPS.map(({ step, label, getValue }) => {
-            const value = getValue(data);
-            return (
-              <TouchableOpacity
-                key={step}
-                onPress={() => goTo(step)}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingHorizontal: 20,
-                  paddingVertical: 14,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#1a1a1a',
-                }}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                  <Text style={{ color: '#444', fontSize: 12, width: 22 }}>
-                    {String(step).padStart(2, '0')}
+          <ScrollView>
+            {/* 처음부터 */}
+            <TouchableOpacity
+              onPress={() => goTo(1)}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingHorizontal: 20,
+                paddingVertical: 16,
+                borderBottomWidth: 1,
+                borderBottomColor: '#1a1a1a',
+              }}
+            >
+              <Text style={{ color: '#c084fc', fontSize: 16, fontWeight: '600' }}>처음부터 검토하기</Text>
+              <Text style={{ color: '#555', fontSize: 14 }}>1번부터 →</Text>
+            </TouchableOpacity>
+
+            {STEPS.map(({ step, label, getValue }) => {
+              const value = getValue(data);
+              return (
+                <TouchableOpacity
+                  key={step}
+                  onPress={() => goTo(step, true)}
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingHorizontal: 20,
+                    paddingVertical: 14,
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#1a1a1a',
+                  }}
+                >
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <Text style={{ color: '#444', fontSize: 12, width: 22 }}>
+                      {String(step).padStart(2, '0')}
+                    </Text>
+                    <Text style={{ color: '#fff', fontSize: 16 }}>{label}</Text>
+                  </View>
+                  <Text style={{ color: '#555', fontSize: 14 }} numberOfLines={1}>
+                    {value || '미입력'}
                   </Text>
-                  <Text style={{ color: '#fff', fontSize: 16 }}>{label}</Text>
-                </View>
-                <Text style={{ color: '#555', fontSize: 14 }} numberOfLines={1}>
-                  {value || '미입력'}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </Animated.View>
       </View>
     </Modal>
   );
