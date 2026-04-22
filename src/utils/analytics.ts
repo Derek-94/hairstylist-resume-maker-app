@@ -11,3 +11,8 @@ export function track(event: string, properties?: Record<string, unknown>) {
   if (__DEV__) return;
   amplitude.track(event, properties);
 }
+
+export function flushAnalytics() {
+  if (__DEV__) return;
+  amplitude.flush();
+}
