@@ -13,11 +13,11 @@ export default function Step13Portfolio() {
   const [items, setItems] = useState<PortfolioItem[]>(data.portfolio);
   const [picking, setPicking] = useState(false);
 
-  const addImages = async () => {
+  const launchPicker = async (crop: boolean) => {
     setPicking(true);
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
-      allowsEditing: true,
+      allowsEditing: crop,
       quality: 0.9,
     });
     setPicking(false);
@@ -30,6 +30,14 @@ export default function Step13Portfolio() {
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
       setItems(prev => [...prev, { uri: dest, width: asset.width, height: asset.height }]);
     }
+  };
+
+  const addImages = () => {
+    Alert.alert('사진 추가', '어떻게 올릴까요?', [
+      { text: '원본 그대로', onPress: () => launchPicker(false) },
+      { text: '1:1 비율로 자르기', onPress: () => launchPicker(true) },
+      { text: '취소', style: 'cancel' },
+    ]);
   };
 
   const removeItem = (index: number) => {

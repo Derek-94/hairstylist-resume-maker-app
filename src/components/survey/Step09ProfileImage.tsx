@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
@@ -11,14 +11,18 @@ export default function Step09ProfileImage() {
   const { data, update } = useResumeStore();
   const [picking, setPicking] = useState(false);
 
-  const pickImage = async () => {
+  const handleImage = async (source: 'camera' | 'library') => {
+    if (source === 'camera') {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('카메라 권한이 필요해요', '설정에서 카메라 접근을 허용해주세요');
+        return;
+      }
+    }
     setPicking(true);
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
+    const result = source === 'camera'
+      ? await ImagePicker.launchCameraAsync({ allowsEditing: true, aspect: [1, 1], quality: 0.8 })
+      : await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], allowsEditing: true, aspect: [1, 1], quality: 0.8 });
 
     if (!result.canceled && result.assets[0]) {
       const asset = result.assets[0];
@@ -29,6 +33,14 @@ export default function Step09ProfileImage() {
       update({ profileImageUri: dest });
     }
     setPicking(false);
+  };
+
+  const pickImage = () => {
+    Alert.alert('프로필 사진', '어떻게 추가할까요?', [
+      { text: '사진 찍기', onPress: () => handleImage('camera') },
+      { text: '앨범에서 선택', onPress: () => handleImage('library') },
+      { text: '취소', style: 'cancel' },
+    ]);
   };
 
   const handleNext = () => router.push('/survey/10');
