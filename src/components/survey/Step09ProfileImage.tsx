@@ -1,4 +1,5 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
@@ -8,8 +9,10 @@ import QuestionTitle from './QuestionTitle';
 
 export default function Step09ProfileImage() {
   const { data, update } = useResumeStore();
+  const [picking, setPicking] = useState(false);
 
   const pickImage = async () => {
+    setPicking(true);
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -25,6 +28,7 @@ export default function Step09ProfileImage() {
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
       update({ profileImageUri: dest });
     }
+    setPicking(false);
   };
 
   const handleNext = () => router.push('/survey/10');
@@ -35,6 +39,7 @@ export default function Step09ProfileImage() {
       <View style={{ alignItems: 'center', marginTop: 8 }}>
         <TouchableOpacity
           onPress={pickImage}
+          disabled={picking}
           style={{
             width: 160,
             height: 160,
@@ -48,7 +53,9 @@ export default function Step09ProfileImage() {
             overflow: 'hidden',
           }}
         >
-          {data.profileImageUri ? (
+          {picking ? (
+            <ActivityIndicator color="#c084fc" size="small" />
+          ) : data.profileImageUri ? (
             <Image
               source={{ uri: data.profileImageUri }}
               style={{ width: 160, height: 160, borderRadius: 80 }}
@@ -60,7 +67,7 @@ export default function Step09ProfileImage() {
             </View>
           )}
         </TouchableOpacity>
-        {data.profileImageUri && (
+        {data.profileImageUri && !picking && (
           <TouchableOpacity onPress={pickImage} style={{ marginTop: 16 }}>
             <Text style={{ color: '#c084fc', fontSize: 14 }}>다시 선택</Text>
           </TouchableOpacity>

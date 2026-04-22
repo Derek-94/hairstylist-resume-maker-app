@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
@@ -11,13 +11,16 @@ import QuestionTitle from './QuestionTitle';
 export default function Step13Portfolio() {
   const { data, update } = useResumeStore();
   const [items, setItems] = useState<PortfolioItem[]>(data.portfolio);
+  const [picking, setPicking] = useState(false);
 
   const addImages = async () => {
+    setPicking(true);
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
       quality: 0.9,
     });
+    setPicking(false);
 
     if (!result.canceled && result.assets[0]) {
       const asset = result.assets[0];
@@ -76,6 +79,7 @@ export default function Step13Portfolio() {
 
         <TouchableOpacity
           onPress={addImages}
+          disabled={picking}
           style={{
             width: THUMB, height: THUMB, borderRadius: 10,
             backgroundColor: '#1a1a1a',
@@ -83,8 +87,14 @@ export default function Step13Portfolio() {
             justifyContent: 'center', alignItems: 'center', gap: 4,
           }}
         >
-          <Text style={{ color: '#555', fontSize: 24 }}>+</Text>
-          <Text style={{ color: '#555', fontSize: 12 }}>추가</Text>
+          {picking ? (
+            <ActivityIndicator color="#c084fc" size="small" />
+          ) : (
+            <>
+              <Text style={{ color: '#555', fontSize: 24 }}>+</Text>
+              <Text style={{ color: '#555', fontSize: 12 }}>추가</Text>
+            </>
+          )}
         </TouchableOpacity>
       </View>
 

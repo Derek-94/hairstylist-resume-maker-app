@@ -8,12 +8,11 @@ import { exportPdf, printResume } from '../src/utils/exportPdf';
 import { saveResumeImages } from '../src/utils/exportImage';
 import { shareFile } from '../src/utils/share';
 
-type Action = 'pdf' | 'image' | 'share' | 'print';
+type Action = 'pdf' | 'image' | 'print';
 
 const ACTIONS: { key: Action; label: string; icon: string; sub: string }[] = [
   { key: 'image', label: '이미지',   icon: '🖼',  sub: '사진 앱 저장' },
-  { key: 'pdf',   label: 'PDF',      icon: '📄',  sub: '파일 앱 저장' },
-  { key: 'share', label: '공유',     icon: '↑',   sub: '카톡·메일 등' },
+  { key: 'pdf',   label: 'PDF',      icon: '📄',  sub: '저장·공유' },
   { key: 'print', label: '인쇄',     icon: '🖨',  sub: 'AirPrint' },
 ];
 
@@ -35,18 +34,16 @@ export default function Preview() {
         Alert.alert('저장 완료', '사진 앱에 저장됐어요');
 
       } else if (action === 'pdf') {
-        await exportPdf(data);
-        Alert.alert('저장 완료', '파일 앱 > 나의 iPhone에 저장됐어요');
-
-      } else if (action === 'share') {
         const uri = await exportPdf(data);
         await shareFile(uri);
 
       } else if (action === 'print') {
-        await printResume(data);
+        try { await printResume(data); } catch {}
       }
     } catch (e: any) {
-      Alert.alert('오류', e.message ?? '다시 시도해주세요');
+      const msg: string = e?.message ?? '';
+      if (msg.includes('cancel') || msg.includes('Cancel') || msg.includes('dismissed')) return;
+      Alert.alert('오류', msg || '다시 시도해주세요');
     } finally {
       setLoading(null);
     }
@@ -99,7 +96,7 @@ export default function Preview() {
               flex: 1,
               height: 60,
               borderRadius: 14,
-              backgroundColor: key === 'share' ? '#c084fc' : '#1a1a1a',
+              backgroundColor: key === 'pdf' ? '#c084fc' : '#1a1a1a',
               justifyContent: 'center',
               alignItems: 'center',
               gap: 2,
@@ -111,8 +108,8 @@ export default function Preview() {
             ) : (
               <>
                 <Text style={{ fontSize: 17 }}>{icon}</Text>
-                <Text style={{ color: key === 'share' ? '#fff' : '#ccc', fontSize: 12, fontWeight: '600' }}>{label}</Text>
-                <Text style={{ color: key === 'share' ? 'rgba(255,255,255,0.7)' : '#555', fontSize: 10 }}>{sub}</Text>
+                <Text style={{ color: key === 'pdf' ? '#fff' : '#ccc', fontSize: 12, fontWeight: '600' }}>{label}</Text>
+                <Text style={{ color: key === 'pdf' ? 'rgba(255,255,255,0.7)' : '#555', fontSize: 10 }}>{sub}</Text>
               </>
             )}
           </TouchableOpacity>

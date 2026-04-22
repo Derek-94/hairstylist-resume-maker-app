@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "hairstylistrn.app"
-               BlueprintName = "hairstylistrn"
-               ReferencedContainer = "container:hairstylistrn.xcodeproj">
+               BuildableName = "Clipr.app"
+               BlueprintName = "Clipr"
+               ReferencedContainer = "container:Clipr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "hairstylistrnTests.xctest"
-               BlueprintName = "hairstylistrnTests"
-               ReferencedContainer = "container:hairstylistrn.xcodeproj">
+               BuildableName = "CliprTests.xctest"
+               BlueprintName = "CliprTests"
+               ReferencedContainer = "container:Clipr.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "hairstylistrn.app"
-            BlueprintName = "hairstylistrn"
-            ReferencedContainer = "container:hairstylistrn.xcodeproj">
+            BuildableName = "Clipr.app"
+            BlueprintName = "Clipr"
+            ReferencedContainer = "container:Clipr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "hairstylistrn.app"
-            BlueprintName = "hairstylistrn"
-            ReferencedContainer = "container:hairstylistrn.xcodeproj">
+            BuildableName = "Clipr.app"
+            BlueprintName = "Clipr"
+            ReferencedContainer = "container:Clipr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

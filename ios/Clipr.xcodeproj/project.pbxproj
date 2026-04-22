@@ -7,29 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05A21A9447D0206549074E31 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 63847D63C2A9B263EBCCFD65 /* PrivacyInfo.xcprivacy */; };
-		06E7836C0F82EF470A573844 /* libPods-hairstylistrn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 612786ADAFF092DB266A8135 /* libPods-hairstylistrn.a */; };
+		0B10BA590EBEED8A6F96C826 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4ACA60533DBE00AB0FDEE296 /* PrivacyInfo.xcprivacy */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		6B419D05FD5B4E8D0BDB3D42 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355BDBC119E13A3BE6C308F /* ExpoModulesProvider.swift */; };
+		500F63A125C32160D27681B9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3641E450E206A82CC1DBF45 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		FCDAB906411706C3465C34D7 /* libPods-Clipr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EB75FD82E295563DA26275 /* libPods-Clipr.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B07F961A680F5B00A75B9A /* hairstylistrn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hairstylistrn.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = hairstylistrn/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = hairstylistrn/Info.plist; sourceTree = "<group>"; };
-		612786ADAFF092DB266A8135 /* libPods-hairstylistrn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hairstylistrn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63847D63C2A9B263EBCCFD65 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = hairstylistrn/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8339053CB18DAFD717285F9E /* Pods-hairstylistrn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hairstylistrn.debug.xcconfig"; path = "Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn.debug.xcconfig"; sourceTree = "<group>"; };
-		9F571BE58979ACA0C78BD6E7 /* Pods-hairstylistrn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hairstylistrn.release.xcconfig"; path = "Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn.release.xcconfig"; sourceTree = "<group>"; };
-		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = hairstylistrn/SplashScreen.storyboard; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Clipr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Clipr/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Clipr/Info.plist; sourceTree = "<group>"; };
+		4ACA60533DBE00AB0FDEE296 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Clipr/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		54394D41BF8D6CD4AD27E8E4 /* Pods-Clipr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clipr.release.xcconfig"; path = "Target Support Files/Pods-Clipr/Pods-Clipr.release.xcconfig"; sourceTree = "<group>"; };
+		97EB75FD82E295563DA26275 /* libPods-Clipr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Clipr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Clipr/SplashScreen.storyboard; sourceTree = "<group>"; };
+		AC79DFE6DA85B9BA04E8EEBD /* Pods-Clipr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clipr.debug.xcconfig"; path = "Target Support Files/Pods-Clipr/Pods-Clipr.debug.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = hairstylistrn/AppDelegate.swift; sourceTree = "<group>"; };
-		F11748442D0722820044C1D9 /* hairstylistrn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "hairstylistrn-Bridging-Header.h"; path = "hairstylistrn/hairstylistrn-Bridging-Header.h"; sourceTree = "<group>"; };
-		F355BDBC119E13A3BE6C308F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-hairstylistrn/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Clipr/AppDelegate.swift; sourceTree = "<group>"; };
+		F11748442D0722820044C1D9 /* Clipr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Clipr-Bridging-Header.h"; path = "Clipr/Clipr-Bridging-Header.h"; sourceTree = "<group>"; };
+		F3641E450E206A82CC1DBF45 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Clipr/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,52 +37,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06E7836C0F82EF470A573844 /* libPods-hairstylistrn.a in Frameworks */,
+				FCDAB906411706C3465C34D7 /* libPods-Clipr.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* hairstylistrn */ = {
+		13B07FAE1A68108700A75B9A /* Clipr */ = {
 			isa = PBXGroup;
 			children = (
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
-				F11748442D0722820044C1D9 /* hairstylistrn-Bridging-Header.h */,
+				F11748442D0722820044C1D9 /* Clipr-Bridging-Header.h */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				63847D63C2A9B263EBCCFD65 /* PrivacyInfo.xcprivacy */,
+				4ACA60533DBE00AB0FDEE296 /* PrivacyInfo.xcprivacy */,
 			);
-			name = hairstylistrn;
+			name = Clipr;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				612786ADAFF092DB266A8135 /* libPods-hairstylistrn.a */,
+				97EB75FD82E295563DA26275 /* libPods-Clipr.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5EB8F7B3F0E79F73338C1F47 /* hairstylistrn */ = {
-			isa = PBXGroup;
-			children = (
-				F355BDBC119E13A3BE6C308F /* ExpoModulesProvider.swift */,
-			);
-			name = hairstylistrn;
-			sourceTree = "<group>";
-		};
-		600D8BD61AA86EE7440444F2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8339053CB18DAFD717285F9E /* Pods-hairstylistrn.debug.xcconfig */,
-				9F571BE58979ACA0C78BD6E7 /* Pods-hairstylistrn.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -95,12 +77,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* hairstylistrn */,
+				13B07FAE1A68108700A75B9A /* Clipr */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				600D8BD61AA86EE7440444F2 /* Pods */,
-				F41DBC2562F866649F952586 /* ExpoModulesProviders */,
+				970F92D0BDF895F781E0466F /* Pods */,
+				9FE4C7A80FDC3C8DA89689D0 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -110,9 +92,26 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* hairstylistrn.app */,
+				13B07F961A680F5B00A75B9A /* Clipr.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		970F92D0BDF895F781E0466F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AC79DFE6DA85B9BA04E8EEBD /* Pods-Clipr.debug.xcconfig */,
+				54394D41BF8D6CD4AD27E8E4 /* Pods-Clipr.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9FE4C7A80FDC3C8DA89689D0 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				EE16B6B202E880D762CE3D9C /* Clipr */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -121,40 +120,40 @@
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
 			);
 			name = Supporting;
-			path = hairstylistrn/Supporting;
+			path = Clipr/Supporting;
 			sourceTree = "<group>";
 		};
-		F41DBC2562F866649F952586 /* ExpoModulesProviders */ = {
+		EE16B6B202E880D762CE3D9C /* Clipr */ = {
 			isa = PBXGroup;
 			children = (
-				5EB8F7B3F0E79F73338C1F47 /* hairstylistrn */,
+				F3641E450E206A82CC1DBF45 /* ExpoModulesProvider.swift */,
 			);
-			name = ExpoModulesProviders;
+			name = Clipr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* hairstylistrn */ = {
+		13B07F861A680F5B00A75B9A /* Clipr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hairstylistrn" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Clipr" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				EEF786FE895B058756CFAADC /* [Expo] Configure project */,
+				3DCA66EB9EF445887D5D398E /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				919B998BE6B236865FD92E2F /* [CP] Embed Pods Frameworks */,
+				C8B7E118652FE97F25A232C3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = hairstylistrn;
-			productName = hairstylistrn;
-			productReference = 13B07F961A680F5B00A75B9A /* hairstylistrn.app */;
+			name = Clipr;
+			productName = Clipr;
+			productReference = 13B07F961A680F5B00A75B9A /* Clipr.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -166,13 +165,11 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = U2WC62534U;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "hairstylistrn" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Clipr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -185,7 +182,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* hairstylistrn */,
+				13B07F861A680F5B00A75B9A /* Clipr */,
 			);
 		};
 /* End PBXProject section */
@@ -198,7 +195,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				05A21A9447D0206549074E31 /* PrivacyInfo.xcprivacy in Resources */,
+				0B10BA590EBEED8A6F96C826 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,12 +234,36 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-hairstylistrn-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Clipr-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3DCA66EB9EF445887D5D398E /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/Clipr/Clipr.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-Clipr/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-Clipr/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Clipr/expo-configure-project.sh\"\n";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -250,7 +271,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Clipr/Pods-Clipr-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/ExpoConstants_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoFileSystem/ExpoFileSystem_privacy.bundle",
@@ -273,16 +294,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clipr/Pods-Clipr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		919B998BE6B236865FD92E2F /* [CP] Embed Pods Frameworks */ = {
+		C8B7E118652FE97F25A232C3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Clipr/Pods-Clipr-frameworks.sh",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
@@ -295,32 +316,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hairstylistrn/Pods-hairstylistrn-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clipr/Pods-Clipr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		EEF786FE895B058756CFAADC /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env",
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/hairstylistrn/hairstylistrn.entitlements",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-hairstylistrn/expo-configure-project.sh",
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-hairstylistrn/ExpoModulesProvider.swift",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-hairstylistrn/expo-configure-project.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -330,7 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				6B419D05FD5B4E8D0BDB3D42 /* ExpoModulesProvider.swift in Sources */,
+				500F63A125C32160D27681B9 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,13 +336,11 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8339053CB18DAFD717285F9E /* Pods-hairstylistrn.debug.xcconfig */;
+			baseConfigurationReference = AC79DFE6DA85B9BA04E8EEBD /* Pods-Clipr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = hairstylistrn/hairstylistrn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Clipr/Clipr.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U2WC62534U;
 				ENABLE_BITCODE = NO;
@@ -353,7 +348,7 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
-				INFOPLIST_FILE = hairstylistrn/Info.plist;
+				INFOPLIST_FILE = Clipr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -366,9 +361,9 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anonymous.hairstylist-rn";
-				PRODUCT_NAME = hairstylistrn;
-				SWIFT_OBJC_BRIDGING_HEADER = "hairstylistrn/hairstylistrn-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clipr.app;
+				PRODUCT_NAME = Clipr;
+				SWIFT_OBJC_BRIDGING_HEADER = "Clipr/Clipr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -378,16 +373,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F571BE58979ACA0C78BD6E7 /* Pods-hairstylistrn.release.xcconfig */;
+			baseConfigurationReference = 54394D41BF8D6CD4AD27E8E4 /* Pods-Clipr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = hairstylistrn/hairstylistrn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Clipr/Clipr.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U2WC62534U;
-				INFOPLIST_FILE = hairstylistrn/Info.plist;
+				INFOPLIST_FILE = Clipr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -400,9 +393,9 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anonymous.hairstylist-rn";
-				PRODUCT_NAME = hairstylistrn;
-				SWIFT_OBJC_BRIDGING_HEADER = "hairstylistrn/hairstylistrn-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clipr.app;
+				PRODUCT_NAME = Clipr;
+				SWIFT_OBJC_BRIDGING_HEADER = "Clipr/Clipr-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -530,7 +523,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hairstylistrn" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Clipr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -539,7 +532,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "hairstylistrn" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Clipr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

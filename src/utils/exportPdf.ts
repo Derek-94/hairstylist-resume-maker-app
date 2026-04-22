@@ -63,7 +63,7 @@ async function buildResumeHtml(data: ResumeData): Promise<string> {
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; color: #111; background: #fff; }
-  .page { padding: 48px 44px; max-width: 595px; margin: 0 auto; }
+  .page { padding: 66px 44px 48px; max-width: 595px; margin: 0 auto; }
   .section-label { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 8px; border-bottom: 2px solid #111; padding-bottom: 4px; display: inline-block; }
   .body-text { font-size: 17px; color: #222; line-height: 1.7; }
   .meta-text { font-size: 15px; color: #555; line-height: 1.8; }
