@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "hairstylist-rn",
-    "slug": "hairstylist-rn",
-    "scheme": "hairstylist-rn",
+    "name": "Clipr",
+    "slug": "clipr",
+    "scheme": "clipr",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.hairstylist-rn"
+      "bundleIdentifier": "com.clipr.app"
     },
     "android": {
       "adaptiveIcon": {
