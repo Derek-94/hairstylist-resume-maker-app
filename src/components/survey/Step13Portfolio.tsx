@@ -58,6 +58,7 @@ export default function Step13Portfolio() {
   };
 
   const THUMB = 100;
+  const MAX = 6;
 
   return (
     <StepLayout step={13} canNext={items.length > 0} onNext={handleNext} onSkip={skip}>
@@ -85,25 +86,27 @@ export default function Step13Portfolio() {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity
-          onPress={addImages}
-          disabled={picking}
-          style={{
-            width: THUMB, height: THUMB, borderRadius: 10,
-            backgroundColor: '#1a1a1a',
-            borderWidth: 1, borderColor: '#2a2a2a', borderStyle: 'dashed',
-            justifyContent: 'center', alignItems: 'center', gap: 4,
-          }}
-        >
-          {picking ? (
-            <ActivityIndicator color="#c084fc" size="small" />
-          ) : (
-            <>
-              <Text style={{ color: '#555', fontSize: 24 }}>+</Text>
-              <Text style={{ color: '#555', fontSize: 12 }}>추가</Text>
-            </>
-          )}
-        </TouchableOpacity>
+        {items.length < MAX && (
+          <TouchableOpacity
+            onPress={addImages}
+            disabled={picking}
+            style={{
+              width: THUMB, height: THUMB, borderRadius: 10,
+              backgroundColor: '#1a1a1a',
+              borderWidth: 1, borderColor: '#2a2a2a', borderStyle: 'dashed',
+              justifyContent: 'center', alignItems: 'center', gap: 4,
+            }}
+          >
+            {picking ? (
+              <ActivityIndicator color="#c084fc" size="small" />
+            ) : (
+              <>
+                <Text style={{ color: '#555', fontSize: 24 }}>+</Text>
+                <Text style={{ color: '#555', fontSize: 12 }}>{items.length}/{MAX}</Text>
+              </>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
 
       {items.length > 0 && (
