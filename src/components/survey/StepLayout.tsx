@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollVie
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
+import { track } from '../../utils/analytics';
 
 interface Props {
   step: number;
@@ -115,7 +116,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
           const isSmallCircle = isArrow && !!onSkip && !canNext;
           return (
             <TouchableOpacity
-              onPress={canNext ? onNext : undefined}
+              onPress={canNext ? () => { track('Survey Step Completed', { step }); onNext(); } : undefined}
               style={{
                 flex: isSmallCircle ? undefined : 1,
                 width: isSmallCircle ? 52 : undefined,
