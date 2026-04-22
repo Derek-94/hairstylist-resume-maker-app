@@ -1,11 +1,19 @@
+import { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useResumeStore } from '../src/store/resume';
 
 export default function Home() {
   const insets = useSafeAreaInsets();
   const { data, reset } = useResumeStore();
+
+  useEffect(() => {
+    AsyncStorage.getItem('onboarded').then(val => {
+      if (!val) router.replace('/onboarding');
+    });
+  }, []);
   const hasData = data.name.length > 0;
 
   return (

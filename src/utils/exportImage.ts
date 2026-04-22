@@ -14,13 +14,13 @@ export async function saveResumeImages(
   const uris: string[] = [];
 
   if (page1Ref.current) {
-    const uri = await captureRef(page1Ref, { format: 'png', quality: 1 });
+    const uri = await captureRef(page1Ref, { format: 'png', quality: 1, scale: 2 });
     await MediaLibrary.saveToLibraryAsync(uri);
     uris.push(uri);
   }
 
   if (page2Ref?.current) {
-    const uri = await captureRef(page2Ref, { format: 'png', quality: 1 });
+    const uri = await captureRef(page2Ref, { format: 'png', quality: 1, scale: 2 });
     await MediaLibrary.saveToLibraryAsync(uri);
     uris.push(uri);
   }
