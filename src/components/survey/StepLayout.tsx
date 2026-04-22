@@ -14,6 +14,12 @@ interface Props {
   children: React.ReactNode;
 }
 
+const STEP_NAMES: Record<number, string> = {
+  1: '이름', 2: '생년월일', 3: '성별', 4: '연락처', 5: '이메일',
+  6: '주소', 7: '학력', 8: '입사가능일', 9: '프로필사진', 10: '보유기술',
+  11: '경력', 12: '자격증', 13: '포트폴리오', 14: '자기소개',
+};
+
 export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, nextLabel, children }: Props) {
   const insets = useSafeAreaInsets();
   const progress = step / total;
@@ -96,7 +102,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         {/* Skip button (optional steps, hidden once content is entered) */}
         {onSkip && !canNext && (
           <TouchableOpacity
-            onPress={() => { track('Survey Step Skipped', { step }); onSkip!(); }}
+            onPress={() => { track('Survey Step Skipped', { step, stepName: STEP_NAMES[step] }); onSkip!(); }}
             style={{
               flex: 1,
               height: 52,
@@ -116,7 +122,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
           const isSmallCircle = isArrow && !!onSkip && !canNext;
           return (
             <TouchableOpacity
-              onPress={canNext ? () => { track('Survey Step Completed', { step }); onNext(); } : undefined}
+              onPress={canNext ? () => { track('Survey Step Completed', { step, stepName: STEP_NAMES[step] }); onNext(); } : undefined}
               style={{
                 flex: isSmallCircle ? undefined : 1,
                 width: isSmallCircle ? 52 : undefined,
