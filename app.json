@@ -39,7 +39,13 @@
     },
     "plugins": [
       "expo-router",
-      "expo-image-picker",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "프로필 사진을 찍기 위해 카메라 접근이 필요해요.",
+          "microphonePermission": "$(PRODUCT_NAME)이(가) 마이크에 접근하려고 합니다."
+        }
+      ],
       "expo-media-library",
       "@react-native-community/datetimepicker"
     ]
