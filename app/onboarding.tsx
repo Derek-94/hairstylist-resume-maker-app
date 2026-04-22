@@ -4,6 +4,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withSequence, w
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { track } from '../src/utils/analytics';
 
 const { width } = Dimensions.get('window');
 
@@ -65,6 +66,7 @@ export default function Onboarding() {
       flatListRef.current?.scrollToIndex({ index: activeIndex + 1, animated: true });
     } else {
       await AsyncStorage.setItem('onboarded', '1');
+      track('Onboarding Completed');
       router.replace('/survey/1');
     }
   };

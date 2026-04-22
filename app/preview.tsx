@@ -7,6 +7,7 @@ import EditStepModal from '../src/components/common/EditStepModal';
 import { exportPdf, printResume } from '../src/utils/exportPdf';
 import { saveResumeImages } from '../src/utils/exportImage';
 import { shareFile } from '../src/utils/share';
+import { track } from '../src/utils/analytics';
 
 type Action = 'pdf' | 'image' | 'print';
 
@@ -31,14 +32,16 @@ export default function Preview() {
     try {
       if (action === 'image') {
         await saveResumeImages(data.name, page1Ref, hasPortfolio ? page2Ref : undefined);
+        track('Export Image', { hasPortfolio });
         Alert.alert('저장 완료', '사진 앱에 저장됐어요');
 
       } else if (action === 'pdf') {
         const uri = await exportPdf(data);
+        track('Export PDF', { hasPortfolio });
         await shareFile(uri);
 
       } else if (action === 'print') {
-        try { await printResume(data); } catch {}
+        try { await printResume(data); track('Print'); } catch {}
       }
     } catch (e: any) {
       const msg: string = e?.message ?? '';

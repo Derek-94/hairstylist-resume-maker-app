@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
+import { track } from '../../utils/analytics';
 
 export default function Step14Introduction() {
   const { data, update } = useResumeStore();
@@ -11,11 +12,13 @@ export default function Step14Introduction() {
 
   const handleNext = () => {
     update({ introduction: value.trim() });
+    track('Survey Completed');
     router.push('/preview');
   };
 
   const skip = () => {
     update({ introduction: '' });
+    track('Survey Completed');
     router.push('/preview');
   };
 
