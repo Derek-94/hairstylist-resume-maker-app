@@ -7,6 +7,7 @@ import { useResumeStore } from '../../store/resume';
 import { PortfolioItem } from '../../types/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
+import { track } from '../../utils/analytics';
 
 export default function Step13Portfolio() {
   const { data, update } = useResumeStore();
@@ -28,7 +29,9 @@ export default function Step13Portfolio() {
       const fileName = `portfolio_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
       const dest = `${FileSystem.documentDirectory}${fileName}`;
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
-      setItems(prev => [...prev, { uri: dest, width: asset.width, height: asset.height }]);
+      const newItems = [...items, { uri: dest, width: asset.width, height: asset.height }];
+      setItems(newItems);
+      track('Portfolio Photo Added', { source: crop ? 'crop' : 'original', count: newItems.length });
     }
   };
 

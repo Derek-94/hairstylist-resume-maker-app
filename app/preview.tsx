@@ -38,6 +38,7 @@ export default function Preview() {
       } else if (action === 'pdf') {
         const uri = await exportPdf(data);
         track('Export PDF', { hasPortfolio });
+        track('Share Initiated', { type: 'pdf' });
         await shareFile(uri);
 
       } else if (action === 'print') {
@@ -76,7 +77,7 @@ export default function Preview() {
         borderBottomWidth: 1,
         borderBottomColor: '#222',
       }}>
-        <TouchableOpacity onPress={() => setEditModal(true)}>
+        <TouchableOpacity onPress={() => { track('Resume Edited'); setEditModal(true); }}>
           <Text style={{ color: '#c084fc', fontSize: 15 }}>← 수정하기</Text>
         </TouchableOpacity>
         <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', flex: 1, textAlign: 'center' }}>

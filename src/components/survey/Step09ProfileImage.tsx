@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, ActivityIndicator, Alert, Linking } from 'react-native';
+import { track } from '../../utils/analytics';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
@@ -38,6 +39,7 @@ export default function Step09ProfileImage() {
       const dest = `${FileSystem.documentDirectory}${fileName}`;
       await FileSystem.copyAsync({ from: asset.uri, to: dest });
       update({ profileImageUri: dest });
+      track('Profile Photo Added', { source });
     }
     setPicking(false);
   };

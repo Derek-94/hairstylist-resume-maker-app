@@ -96,7 +96,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         {/* Skip button (optional steps, hidden once content is entered) */}
         {onSkip && !canNext && (
           <TouchableOpacity
-            onPress={onSkip}
+            onPress={() => { track('Survey Step Skipped', { step }); onSkip!(); }}
             style={{
               flex: 1,
               height: 52,
