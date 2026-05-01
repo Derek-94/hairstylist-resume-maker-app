@@ -15,6 +15,7 @@ const defaultData: ResumeData = {
   profileImageUri: null,
   skills: [],
   careerLevel: null,
+  careerDetail: '',
   certifications: '',
   portfolio: [],
   introduction: '',

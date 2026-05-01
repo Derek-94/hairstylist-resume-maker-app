@@ -119,9 +119,14 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
         {/* Career */}
         {data.careerLevel && (
           <>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <Text style={S.sectionLabel}>경력</Text>
-              <Text style={S.bodyText}>{CAREER_LABELS[data.careerLevel]}</Text>
+              <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                <Text style={S.bodyText}>{CAREER_LABELS[data.careerLevel]}</Text>
+                {data.careerDetail?.trim() ? (
+                  <Text style={[S.metaText, { marginTop: 4, textAlign: 'right' }]}>{data.careerDetail.trim()}</Text>
+                ) : null}
+              </View>
             </View>
             <Divider />
           </>

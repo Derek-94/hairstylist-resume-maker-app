@@ -102,9 +102,12 @@ async function buildResumeHtml(data: ResumeData): Promise<string> {
   ` : ''}
 
   ${data.careerLevel ? `
-  <div style="display:flex;justify-content:space-between;align-items:baseline;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
     <div class="section-label" style="margin-bottom:0;">경력</div>
-    <div class="body-text">${CAREER_LABELS[data.careerLevel]}</div>
+    <div style="text-align:right;">
+      <div class="body-text">${CAREER_LABELS[data.careerLevel]}</div>
+      ${data.careerDetail?.trim() ? `<div class="meta-text" style="margin-top:4px;">${data.careerDetail.trim()}</div>` : ''}
+    </div>
   </div>
   <hr>
   ` : ''}
