@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, LayoutAnimation } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
@@ -30,6 +30,7 @@ export default function Step10Skills() {
   };
 
   const toggleCategory = (label: string) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(prev =>
       prev.includes(label) ? prev.filter(l => l !== label) : [...prev, label]
     );

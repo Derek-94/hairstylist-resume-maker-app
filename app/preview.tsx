@@ -8,6 +8,7 @@ import { exportPdf, printResume } from '../src/utils/exportPdf';
 import { saveResumeImages } from '../src/utils/exportImage';
 import { shareFile } from '../src/utils/share';
 import { track } from '../src/utils/analytics';
+import { useInterstitialAd } from '../src/utils/useInterstitialAd';
 
 type Action = 'pdf' | 'image' | 'print';
 
@@ -26,6 +27,13 @@ export default function Preview() {
   const [editModal, setEditModal] = useState(false);
 
   const hasPortfolio = data.portfolio.length > 0;
+  const pendingActionRef = useRef<Action | null>(null);
+
+  const { showAd } = useInterstitialAd(() => {
+    const action = pendingActionRef.current;
+    pendingActionRef.current = null;
+    if (action) handle(action);
+  });
 
   const handle = async (action: Action) => {
     setLoading(action);
@@ -105,7 +113,14 @@ export default function Preview() {
         {ACTIONS.map(({ key, label, icon, sub }) => (
           <TouchableOpacity
             key={key}
-            onPress={() => handle(key)}
+            onPress={() => {
+              if (key === 'print') {
+                handle(key); // 인쇄는 광고 없이 바로
+              } else {
+                pendingActionRef.current = key;
+                showAd(); // PDF/이미지는 광고 먼저
+              }
+            }}
             disabled={loading !== null}
             style={{
               flex: 1,

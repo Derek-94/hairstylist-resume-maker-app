@@ -2,8 +2,12 @@ import * as Print from 'expo-print';
 import * as FileSystem from 'expo-file-system/legacy';
 import { ResumeData, CAREER_LABELS } from '../types/resume';
 
-function imgToBase64(uri: string): Promise<string> {
-  return FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+async function imgToBase64(uri: string): Promise<string | null> {
+  try {
+    return await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+  } catch {
+    return null;
+  }
 }
 
 function mimeFromUri(uri: string): string {
@@ -26,14 +30,15 @@ async function buildResumeHtml(data: ResumeData): Promise<string> {
     : null;
   const profileMime = data.profileImageUri ? mimeFromUri(data.profileImageUri) : 'image/jpeg';
 
-  const portfolioItems = await Promise.all(
-    data.portfolio.map(async p => ({
-      b64: await imgToBase64(p.uri),
-      mime: mimeFromUri(p.uri),
-      width: p.width,
-      height: p.height,
-    }))
-  );
+  const portfolioItems = (
+    await Promise.all(
+      data.portfolio.map(async p => {
+        const b64 = await imgToBase64(p.uri);
+        if (!b64) return null;
+        return { b64, mime: mimeFromUri(p.uri), width: p.width, height: p.height };
+      })
+    )
+  ).filter(Boolean) as { b64: string; mime: string; width: number; height: number }[];
 
   const skillTags = data.skills
     .map(s => `<span class="tag">${s}</span>`)
