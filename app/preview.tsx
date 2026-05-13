@@ -41,6 +41,7 @@ export default function Preview() {
       if (action === 'image') {
         await saveResumeImages(data.name, page1Ref, hasPortfolio ? page2Ref : undefined);
         track('Export Image', { hasPortfolio });
+        track('Share Initiated', { type: 'image' });
         Alert.alert('저장 완료', '사진 앱에 저장됐어요');
 
       } else if (action === 'pdf') {

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useResumeStore } from '../../src/store/resume';
+import { track } from '../../src/utils/analytics';
 import Step01Name from '../../src/components/survey/Step01Name';
 import Step02Birth from '../../src/components/survey/Step02Birth';
 import Step03Gender from '../../src/components/survey/Step03Gender';
@@ -37,6 +39,12 @@ export default function SurveyStep() {
   const { isEditMode } = useResumeStore();
   const stepNum = Number(step);
   const StepComponent = STEPS[stepNum];
+
+  useEffect(() => {
+    if (stepNum === 1 && !isEditMode) {
+      track('Survey Started');
+    }
+  }, []);
 
   if (!StepComponent) {
     router.replace('/survey/1');

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { Platform } from 'react-native';
+import { track } from './analytics';
 
-// 테스트 ID — 실제 출시 전에 AdMob에서 받은 ID로 교체
 const AD_UNIT_ID = __DEV__
   ? TestIds.INTERSTITIAL
   : Platform.OS === 'ios'
@@ -23,10 +23,14 @@ export function useInterstitialAd(onAdClosed: () => void) {
 
     const unsubscribeLoaded = ad.addAdEventListener(AdEventType.LOADED, () => {
       setLoaded(true);
+      track('Ad Loaded');
+    });
+    const unsubscribeOpened = ad.addAdEventListener(AdEventType.OPENED, () => {
+      track('Ad Shown');
     });
     const unsubscribeClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
+      track('Ad Dismissed');
       callbackRef.current();
-      // 다음 광고 미리 로드
       ad.load();
       setLoaded(false);
     });
@@ -35,6 +39,7 @@ export function useInterstitialAd(onAdClosed: () => void) {
 
     return () => {
       unsubscribeLoaded();
+      unsubscribeOpened();
       unsubscribeClosed();
     };
   }, []);
@@ -43,7 +48,7 @@ export function useInterstitialAd(onAdClosed: () => void) {
     if (loaded && adRef.current) {
       adRef.current.show();
     } else {
-      // 광고가 아직 로드 안 됐으면 그냥 바로 실행
+      track('Ad Skipped', { reason: 'not_loaded' });
       callbackRef.current();
     }
   };
