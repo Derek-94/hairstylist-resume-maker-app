@@ -25,6 +25,9 @@ export function useInterstitialAd(onAdClosed: () => void) {
       setLoaded(true);
       track('Ad Loaded');
     });
+    const unsubscribeError = ad.addAdEventListener(AdEventType.ERROR, (error) => {
+      track('Ad Failed', { reason: error?.message ?? 'unknown' });
+    });
     const unsubscribeOpened = ad.addAdEventListener(AdEventType.OPENED, () => {
       track('Ad Shown');
     });
@@ -41,6 +44,7 @@ export function useInterstitialAd(onAdClosed: () => void) {
       unsubscribeLoaded();
       unsubscribeOpened();
       unsubscribeClosed();
+      unsubscribeError();
     };
   }, []);
 

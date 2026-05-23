@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useResumeStore } from '../src/store/resume';
@@ -21,6 +21,8 @@ const ACTIONS: { key: Action; label: string; icon: string; sub: string }[] = [
 export default function Preview() {
   const insets = useSafeAreaInsets();
   const { data } = useResumeStore();
+
+  useEffect(() => { track('Preview Opened'); }, []);
   const page1Ref = useRef<View>(null);
   const page2Ref = useRef<View>(null);
   const [loading, setLoading] = useState<Action | null>(null);
@@ -41,7 +43,6 @@ export default function Preview() {
       if (action === 'image') {
         await saveResumeImages(data.name, page1Ref, hasPortfolio ? page2Ref : undefined);
         track('Export Image', { hasPortfolio });
-        track('Share Initiated', { type: 'image' });
         Alert.alert('저장 완료', '사진 앱에 저장됐어요');
 
       } else if (action === 'pdf') {
@@ -56,6 +57,7 @@ export default function Preview() {
     } catch (e: any) {
       const msg: string = e?.message ?? '';
       if (msg.includes('cancel') || msg.includes('Cancel') || msg.includes('dismissed')) return;
+      track('Export Failed', { action, reason: msg || 'unknown' });
       if (msg === 'PHOTOS_PERMISSION_DENIED') {
         Alert.alert(
           '사진 접근 권한이 필요해요',
