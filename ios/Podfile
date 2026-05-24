@@ -59,5 +59,20 @@ target 'Clipr' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => ccache_enabled?(podfile_properties),
     )
+
+    # Workaround: CocoaPods doesn't embed ReactNativeDependencies.xcframework into the app bundle.
+    # Without this, the app crashes at launch with "Library not loaded: ReactNativeDependencies".
+    frameworks_script = File.join(installer.sandbox.root,
+      'Target Support Files', 'Pods-Clipr', 'Pods-Clipr-frameworks.sh')
+    if File.exist?(frameworks_script)
+      content = File.read(frameworks_script)
+      rn_dep_line = '  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework"'
+      unless content.include?('ReactNativeDependencies/ReactNativeDependencies')
+        content.gsub!(
+          /^(if \[\[ "\$CONFIGURATION" == "(Debug|Release)" \]\]; then\n(?:  install_framework[^\n]+\n)+)(fi)/
+        ) { "#{$1}#{rn_dep_line}\n#{$3}" }
+        File.write(frameworks_script, content)
+      end
+    end
   end
 end

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Clipr",
+    "name": "뚝딱이력서",
     "slug": "clipr",
     "scheme": "clipr",
     "version": "1.0.0",
@@ -9,9 +9,9 @@
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0f0f0f"
     },
     "ios": {
       "supportsTablet": true,

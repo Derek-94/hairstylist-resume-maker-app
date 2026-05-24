@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useResumeStore } from '../src/store/resume';
 import ResumePreview from '../src/components/template/ResumePreview';
 import EditStepModal from '../src/components/common/EditStepModal';
@@ -8,7 +9,7 @@ import { exportPdf, printResume } from '../src/utils/exportPdf';
 import { saveResumeImages } from '../src/utils/exportImage';
 import { shareFile } from '../src/utils/share';
 import { track } from '../src/utils/analytics';
-import { useInterstitialAd } from '../src/utils/useInterstitialAd';
+import { useAds } from '../src/contexts/AdContext';
 
 type Action = 'pdf' | 'image' | 'print';
 
@@ -30,12 +31,26 @@ export default function Preview() {
 
   const hasPortfolio = data.portfolio.length > 0;
   const pendingActionRef = useRef<Action | null>(null);
+  const [isFirstSave, setIsFirstSave] = useState(true);
 
-  const { showAd } = useInterstitialAd(() => {
+  useEffect(() => {
+    AsyncStorage.getItem('hasSaved').then(val => {
+      if (val) setIsFirstSave(false);
+    });
+  }, []);
+
+  const { showRewardedAd, rewardedLoaded, showInterstitialAd } = useAds();
+
+  const doAction = () => {
     const action = pendingActionRef.current;
     pendingActionRef.current = null;
     if (action) handle(action);
-  });
+  };
+
+  const markSaved = async () => {
+    await AsyncStorage.setItem('hasSaved', '1');
+    setIsFirstSave(false);
+  };
 
   const handle = async (action: Action) => {
     setLoading(action);
@@ -118,10 +133,17 @@ export default function Preview() {
             key={key}
             onPress={() => {
               if (key === 'print') {
-                handle(key); // 인쇄는 광고 없이 바로
+                handle(key);
               } else {
                 pendingActionRef.current = key;
-                showAd(); // PDF/이미지는 광고 먼저
+                if (isFirstSave && rewardedLoaded) {
+                  showRewardedAd(
+                    async () => { await markSaved(); doAction(); },
+                    () => { doAction(); },
+                  );
+                } else {
+                  showInterstitialAd(async () => { await markSaved(); doAction(); });
+                }
               }
             }}
             disabled={loading !== null}

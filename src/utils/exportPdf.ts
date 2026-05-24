@@ -87,7 +87,7 @@ async function buildResumeHtml(data: ResumeData): Promise<string> {
         : `<div style="width:240px;height:240px;border-radius:10px;background:#f0f0f0;"></div>`}
     </div>
     <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:240px;">
-      <div style="font-size:10px;font-weight:600;color:#aaa;letter-spacing:2px;margin-bottom:4px;">HAIR STYLIST</div>
+      <div style="font-size:10px;font-weight:600;color:#aaa;letter-spacing:2px;margin-bottom:4px;">이력서</div>
       <div style="font-size:28px;font-weight:800;color:#111;margin-bottom:8px;">${data.name}</div>
       <div class="meta-text">
         ${data.birthDate ? `${formatDate(data.birthDate)}${data.gender ? ` &middot; ${data.gender === '여' ? '여성' : '남성'}` : ''}<br>` : ''}

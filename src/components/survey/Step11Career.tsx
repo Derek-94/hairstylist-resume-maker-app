@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { useRef, useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import { CareerLevel, CAREER_LABELS } from '../../types/resume';
@@ -12,6 +12,7 @@ export default function Step11Career() {
   const { data, update } = useResumeStore();
   const [level, setLevel] = useState<CareerLevel | null>(data.careerLevel);
   const [detail, setDetail] = useState(data.careerDetail ?? '');
+  const scrollRef = useRef<ScrollView>(null);
 
   const handleNext = () => {
     update({ careerLevel: level, careerDetail: detail });
@@ -19,7 +20,7 @@ export default function Step11Career() {
   };
 
   return (
-    <StepLayout step={11} canNext={!!level} onNext={handleNext}>
+    <StepLayout step={11} canNext={!!level} onNext={handleNext} scrollViewRef={scrollRef}>
       <QuestionTitle>경력을 선택해주세요</QuestionTitle>
       <View style={{ gap: 10, marginBottom: 28 }}>
         {OPTIONS.map(([value, label]) => (
@@ -49,6 +50,7 @@ export default function Step11Career() {
         placeholderTextColor="#444"
         multiline
         returnKeyType="done"
+        onFocus={() => setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100)}
         style={{
           backgroundColor: '#1a1a1a',
           borderRadius: 14,

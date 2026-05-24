@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, LayoutAnimation } from 'react-native';
+import { useRef, useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput, LayoutAnimation, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
@@ -22,6 +22,7 @@ export default function Step10Skills() {
   const [selected, setSelected] = useState<string[]>(data.skills);
   const [expanded, setExpanded] = useState<string[]>([]);
   const [custom, setCustom] = useState('');
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const toggle = (skill: string) => {
     setSelected(prev =>
@@ -40,6 +41,7 @@ export default function Step10Skills() {
     const trimmed = custom.trim();
     if (trimmed && !selected.includes(trimmed)) {
       setSelected(prev => [...prev, trimmed]);
+      setTimeout(() => scrollViewRef.current?.scrollToEnd({ animated: true }), 100);
     }
     setCustom('');
   };
@@ -50,7 +52,7 @@ export default function Step10Skills() {
   };
 
   return (
-    <StepLayout step={10} canNext={selected.length > 0} onNext={handleNext}>
+    <StepLayout step={10} canNext={selected.length > 0} onNext={handleNext} scrollViewRef={scrollViewRef}>
       <QuestionTitle>보유 기술을 선택해주세요</QuestionTitle>
 
       {/* Category accordion */}

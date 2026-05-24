@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import { track } from '../../utils/analytics';
+import { RefObject } from 'react';
 
 interface Props {
   step: number;
@@ -12,6 +13,7 @@ interface Props {
   onSkip?: () => void;
   nextLabel?: string;
   children: React.ReactNode;
+  scrollViewRef?: RefObject<ScrollView>;
 }
 
 const STEP_NAMES: Record<number, string> = {
@@ -20,7 +22,7 @@ const STEP_NAMES: Record<number, string> = {
   11: '경력', 12: '자격증', 13: '포트폴리오', 14: '자기소개',
 };
 
-export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, nextLabel, children }: Props) {
+export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, nextLabel, children, scrollViewRef }: Props) {
   const insets = useSafeAreaInsets();
   const progress = step / total;
   const { isEditMode, setEditMode } = useResumeStore();
@@ -44,6 +46,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
       </View>
 
       <ScrollView
+        ref={scrollViewRef}
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >

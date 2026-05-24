@@ -85,7 +85,7 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
           {/* Name + meta — bottom-aligned */}
           <View style={{ flex: 1, justifyContent: 'flex-end' }}>
             <Text style={{ fontSize: 9, color: '#aaa', letterSpacing: 1.5, fontWeight: '600', marginBottom: 2 }}>
-              HAIR STYLIST
+              이력서
             </Text>
             <Text style={{ fontSize: 20, fontWeight: '800', color: '#111', letterSpacing: -0.5, marginBottom: 4 }}>
               {data.name || '이름'}

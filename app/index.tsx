@@ -22,7 +22,7 @@ export default function Home() {
       {/* Top label */}
       <View style={{ marginTop: 48 }}>
         <Text style={{ color: '#c084fc', fontSize: 13, fontWeight: '600', letterSpacing: 2 }}>
-          HAIR STYLIST
+          뚝딱이력서
         </Text>
       </View>
 
