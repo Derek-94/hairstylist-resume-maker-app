@@ -131,11 +131,11 @@ function AnimatedDocument() {
   }, []);
 
   const floatStyle = useAnimatedStyle(() => ({ transform: [{ translateY: floatY.value }] }));
-  const lp0 = useAnimatedProps(() => ({ opacity: l0.value * 0.65 }));
-  const lp1 = useAnimatedProps(() => ({ opacity: l1.value * 0.5 }));
-  const lp2 = useAnimatedProps(() => ({ opacity: l2.value * 0.45 }));
-  const lp3 = useAnimatedProps(() => ({ opacity: l3.value * 0.4 }));
-  const lp4 = useAnimatedProps(() => ({ opacity: l4.value * 0.35 }));
+  const lp0 = useAnimatedProps(() => ({ opacity: l0.value }));
+  const lp1 = useAnimatedProps(() => ({ opacity: l1.value * 0.75 }));
+  const lp2 = useAnimatedProps(() => ({ opacity: l2.value }));
+  const lp3 = useAnimatedProps(() => ({ opacity: l3.value * 0.8 }));
+  const lp4 = useAnimatedProps(() => ({ opacity: l4.value * 0.65 }));
 
   return (
     <Animated.View style={floatStyle}>
