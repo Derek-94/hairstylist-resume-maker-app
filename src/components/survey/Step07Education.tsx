@@ -24,7 +24,7 @@ export default function Step07Education() {
             style={{
               height: 56,
               borderRadius: 14,
-              backgroundColor: data.education === option ? '#c084fc' : '#1a1a1a',
+              backgroundColor: data.education === option ? '#3D5BF6' : '#1a1a1a',
               justifyContent: 'center',
               paddingHorizontal: 20,
             }}

@@ -39,7 +39,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
             style={{
               height: 3,
               width: `${progress * 100}%`,
-              backgroundColor: '#c084fc',
+              backgroundColor: '#3D5BF6',
             }}
           />
         </View>
@@ -57,7 +57,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
           </Text>
           {isEditMode && (
             <TouchableOpacity onPress={() => { setEditMode(false); router.replace('/preview'); }}>
-              <Text style={{ color: '#c084fc', fontSize: 13, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
+              <Text style={{ color: '#3D5BF6', fontSize: 13, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -131,7 +131,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
                 width: isSmallCircle ? 52 : undefined,
                 height: 52,
                 borderRadius: isSmallCircle ? 26 : 14,
-                backgroundColor: canNext ? '#c084fc' : '#1a1a1a',
+                backgroundColor: canNext ? '#3D5BF6' : '#1a1a1a',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}

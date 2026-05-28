@@ -30,7 +30,7 @@ export default function Step11Career() {
             style={{
               height: 56,
               borderRadius: 14,
-              backgroundColor: level === value ? '#c084fc' : '#1a1a1a',
+              backgroundColor: level === value ? '#3D5BF6' : '#1a1a1a',
               justifyContent: 'center',
               paddingHorizontal: 20,
             }}

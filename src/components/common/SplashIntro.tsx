@@ -77,13 +77,13 @@ function SplashDocument() {
       <Svg width={96} height={128} viewBox="0 0 349 466" fill="none">
         <Path
           d="M302.08 0H46.08C20.63 0 0 20.631 0 46.08V419.84C0 445.29 20.63 465.92 46.08 465.92H302.08C327.529 465.92 348.16 445.29 348.16 419.84V46.08C348.16 20.631 327.529 0 302.08 0Z"
-          fill="#EDE9FE"
+          fill="#E8EDFF"
         />
-        <AnimatedSvgPath d={LINE_PATHS[0]} fill="#C4B5FD" animatedProps={lp0} />
-        <AnimatedSvgPath d={LINE_PATHS[1]} fill="#C4B5FD" animatedProps={lp1} />
-        <AnimatedSvgPath d={LINE_PATHS[2]} fill="#C4B5FD" animatedProps={lp2} />
-        <AnimatedSvgPath d={LINE_PATHS[3]} fill="#C4B5FD" animatedProps={lp3} />
-        <AnimatedSvgPath d={LINE_PATHS[4]} fill="#C4B5FD" animatedProps={lp4} />
+        <AnimatedSvgPath d={LINE_PATHS[0]} fill="#93AAFB" animatedProps={lp0} />
+        <AnimatedSvgPath d={LINE_PATHS[1]} fill="#93AAFB" animatedProps={lp1} />
+        <AnimatedSvgPath d={LINE_PATHS[2]} fill="#93AAFB" animatedProps={lp2} />
+        <AnimatedSvgPath d={LINE_PATHS[3]} fill="#93AAFB" animatedProps={lp3} />
+        <AnimatedSvgPath d={LINE_PATHS[4]} fill="#93AAFB" animatedProps={lp4} />
       </Svg>
     </Animated.View>
   );
@@ -138,11 +138,11 @@ function SplashWand() {
         <AnimatedSvgG animatedProps={starProps}>
           <Path
             d="M107.387 62L177.734 121.844L259.774 77.9423L224.554 162.94L290.705 227.516L199.387 221.349L159.069 303.516L136.22 213.94L45 201.942L124.04 152.844L107.387 62Z"
-            fill="#C084FC"
+            fill="#3D5BF6"
           />
           <Path
             d="M107.387 62L124.04 152.844L45 201.942L136.22 213.94L159.069 303.516L199.387 221.349L107.387 62Z"
-            fill="#C084FC"
+            fill="#3D5BF6"
           />
         </AnimatedSvgG>
       </Svg>

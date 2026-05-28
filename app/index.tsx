@@ -21,7 +21,7 @@ export default function Home() {
 
       {/* Top label */}
       <View style={{ marginTop: 48 }}>
-        <Text style={{ color: '#c084fc', fontSize: 13, fontWeight: '600', letterSpacing: 2 }}>
+        <Text style={{ color: '#3D5BF6', fontSize: 13, fontWeight: '600', letterSpacing: 2 }}>
           뚝딱이력서
         </Text>
       </View>
@@ -58,7 +58,7 @@ export default function Home() {
           style={{
             height: 60,
             borderRadius: 16,
-            backgroundColor: '#c084fc',
+            backgroundColor: '#3D5BF6',
             justifyContent: 'center',
             alignItems: 'center',
           }}

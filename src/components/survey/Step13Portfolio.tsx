@@ -101,7 +101,7 @@ export default function Step13Portfolio() {
             }}
           >
             {picking ? (
-              <ActivityIndicator color="#c084fc" size="small" />
+              <ActivityIndicator color="#3D5BF6" size="small" />
             ) : (
               <>
                 <Text style={{ color: '#555', fontSize: 24 }}>+</Text>

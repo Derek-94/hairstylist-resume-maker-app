@@ -60,7 +60,7 @@ export default function Step02Birth() {
       <QuestionTitle>생년월일을 알려주세요</QuestionTitle>
 
       {selected && (
-        <Text style={{ color: '#c084fc', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+        <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
           {displayDate(dateToString(date))}
         </Text>
       )}

@@ -71,7 +71,7 @@ export default function Step08AvailableDate() {
               flex: 1,
               height: 52,
               borderRadius: 14,
-              backgroundColor: mode === m ? '#c084fc' : '#1a1a1a',
+              backgroundColor: mode === m ? '#3D5BF6' : '#1a1a1a',
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: mode === m ? 0 : 1,
@@ -88,7 +88,7 @@ export default function Step08AvailableDate() {
       {/* Date picker */}
       {mode === 'date' && (
         <>
-          <Text style={{ color: '#c084fc', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 12 }}>
+          <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 12 }}>
             {displayDate(dateToString(date))}
           </Text>
           <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>

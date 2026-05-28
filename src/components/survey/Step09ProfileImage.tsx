@@ -75,7 +75,7 @@ export default function Step09ProfileImage() {
           }}
         >
           {picking ? (
-            <ActivityIndicator color="#c084fc" size="small" />
+            <ActivityIndicator color="#3D5BF6" size="small" />
           ) : data.profileImageUri ? (
             <Image
               source={{ uri: data.profileImageUri }}
@@ -90,7 +90,7 @@ export default function Step09ProfileImage() {
         </TouchableOpacity>
         {data.profileImageUri && !picking && (
           <TouchableOpacity onPress={pickImage} style={{ marginTop: 16 }}>
-            <Text style={{ color: '#c084fc', fontSize: 14 }}>다시 선택</Text>
+            <Text style={{ color: '#3D5BF6', fontSize: 14 }}>다시 선택</Text>
           </TouchableOpacity>
         )}
       </View>

@@ -104,7 +104,7 @@ export default function Preview() {
         borderBottomColor: '#222',
       }}>
         <TouchableOpacity onPress={() => { track('Resume Edited'); setEditModal(true); }}>
-          <Text style={{ color: '#c084fc', fontSize: 15 }}>← 수정하기</Text>
+          <Text style={{ color: '#3D5BF6', fontSize: 15 }}>← 수정하기</Text>
         </TouchableOpacity>
         <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', flex: 1, textAlign: 'center' }}>
           미리보기
@@ -151,7 +151,7 @@ export default function Preview() {
               flex: 1,
               height: 60,
               borderRadius: 14,
-              backgroundColor: key === 'pdf' ? '#c084fc' : '#1a1a1a',
+              backgroundColor: key === 'pdf' ? '#3D5BF6' : '#1a1a1a',
               justifyContent: 'center',
               alignItems: 'center',
               gap: 2,

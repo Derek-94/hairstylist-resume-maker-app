@@ -138,7 +138,7 @@ export default function EditStepModal({ visible, onClose }: Props) {
                 borderBottomColor: '#1a1a1a',
               }}
             >
-              <Text style={{ color: '#c084fc', fontSize: 16, fontWeight: '600' }}>처음부터 검토하기</Text>
+              <Text style={{ color: '#3D5BF6', fontSize: 16, fontWeight: '600' }}>처음부터 검토하기</Text>
               <Text style={{ color: '#555', fontSize: 14 }}>1번부터 →</Text>
             </TouchableOpacity>
 

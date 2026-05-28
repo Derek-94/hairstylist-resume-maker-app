@@ -75,7 +75,7 @@ export default function Step10Skills() {
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                   <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>{label}</Text>
                   {selectedCount > 0 && (
-                    <View style={{ backgroundColor: '#c084fc', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 2 }}>
+                    <View style={{ backgroundColor: '#3D5BF6', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 2 }}>
                       <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>{selectedCount}</Text>
                     </View>
                   )}
@@ -97,7 +97,7 @@ export default function Step10Skills() {
                         paddingHorizontal: 14,
                         paddingVertical: 8,
                         borderRadius: 999,
-                        backgroundColor: selected.includes(skill) ? '#c084fc' : '#2a2a2a',
+                        backgroundColor: selected.includes(skill) ? '#3D5BF6' : '#2a2a2a',
                         borderWidth: selected.includes(skill) ? 0 : 1,
                         borderColor: '#333',
                       }}
@@ -143,7 +143,7 @@ export default function Step10Skills() {
             justifyContent: 'center',
           }}
         >
-          <Text style={{ color: '#c084fc', fontSize: 15, fontWeight: '600' }}>+ 추가</Text>
+          <Text style={{ color: '#3D5BF6', fontSize: 15, fontWeight: '600' }}>+ 추가</Text>
         </TouchableOpacity>
       </View>
 
@@ -166,7 +166,7 @@ export default function Step10Skills() {
                   paddingRight: 8,
                   paddingVertical: 7,
                   borderRadius: 999,
-                  backgroundColor: '#c084fc',
+                  backgroundColor: '#3D5BF6',
                 }}
               >
                 <Text style={{ color: '#fff', fontSize: 13, fontWeight: '600' }}>{skill}</Text>

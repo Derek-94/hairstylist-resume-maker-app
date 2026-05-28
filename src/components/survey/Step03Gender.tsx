@@ -29,7 +29,7 @@ export default function Step03Gender() {
               flex: 1,
               height: 56,
               borderRadius: 14,
-              backgroundColor: data.gender === value ? '#c084fc' : '#1a1a1a',
+              backgroundColor: data.gender === value ? '#3D5BF6' : '#1a1a1a',
               justifyContent: 'center',
               alignItems: 'center',
             }}
