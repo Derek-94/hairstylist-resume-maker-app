@@ -132,18 +132,14 @@ export default function Preview() {
           <TouchableOpacity
             key={key}
             onPress={() => {
-              if (key === 'print') {
-                handle(key);
+              pendingActionRef.current = key;
+              if (isFirstSave && rewardedLoaded) {
+                showRewardedAd(
+                  async () => { await markSaved(); doAction(); },
+                  () => { doAction(); },
+                );
               } else {
-                pendingActionRef.current = key;
-                if (isFirstSave && rewardedLoaded) {
-                  showRewardedAd(
-                    async () => { await markSaved(); doAction(); },
-                    () => { doAction(); },
-                  );
-                } else {
-                  showInterstitialAd(async () => { await markSaved(); doAction(); });
-                }
+                showInterstitialAd(async () => { await markSaved(); doAction(); });
               }
             }}
             disabled={loading !== null}
