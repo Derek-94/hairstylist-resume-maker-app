@@ -50,16 +50,11 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Step counter + 미리보기로 돌아가기 */}
-        <View style={{ paddingTop: 16, paddingHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Step counter */}
+        <View style={{ paddingTop: 16, paddingHorizontal: 24 }}>
           <Text style={{ color: '#555', fontSize: 13, fontWeight: '500', letterSpacing: 1 }}>
             {String(step).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </Text>
-          {isEditMode && (
-            <TouchableOpacity onPress={() => { setEditMode(false); router.replace('/preview'); }}>
-              <Text style={{ color: '#3D5BF6', fontSize: 13, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
-            </TouchableOpacity>
-          )}
         </View>
 
         {/* Content */}
@@ -67,6 +62,26 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
           {children}
         </View>
       </ScrollView>
+
+      {/* Edit mode: return to preview pill */}
+      {isEditMode && (
+        <TouchableOpacity
+          onPress={() => { setEditMode(false); router.replace('/preview'); }}
+          style={{
+            marginHorizontal: 24,
+            marginBottom: 8,
+            height: 44,
+            borderRadius: 12,
+            backgroundColor: '#1a1a1a',
+            borderWidth: 1,
+            borderColor: '#3D5BF6',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: '#3D5BF6', fontSize: 15, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
+        </TouchableOpacity>
+      )}
 
       {/* Bottom navigation */}
       <View
