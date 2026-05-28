@@ -79,7 +79,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
             alignItems: 'center',
           }}
         >
-          <Text style={{ color: '#3D5BF6', fontSize: 15, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
+          <Text style={{ color: '#fff', fontSize: 15, fontWeight: '600' }}>미리보기로 돌아가기 →</Text>
         </TouchableOpacity>
       )}
 
