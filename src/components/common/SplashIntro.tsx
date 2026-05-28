@@ -123,15 +123,14 @@ export default function SplashIntro({ onDone }: { onDone: () => void }) {
   const penAngle = useSharedValue(0);
 
   useEffect(() => {
-    // Two writing strokes, then pause
+    // Gentle tremor — pen stays still, small slow wobble
     penAngle.value = withRepeat(
       withSequence(
-        withTiming(12, { duration: 150, easing: Easing.out(Easing.ease) }),
-        withTiming(0, { duration: 200, easing: Easing.inOut(Easing.ease) }),
-        withTiming(12, { duration: 150, easing: Easing.out(Easing.ease) }),
-        withTiming(-3, { duration: 200, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0, { duration: 280, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0, { duration: 500 }),
+        withTiming(2.5, { duration: 400, easing: Easing.inOut(Easing.ease) }),
+        withTiming(-2.5, { duration: 400, easing: Easing.inOut(Easing.ease) }),
+        withTiming(2, { duration: 350, easing: Easing.inOut(Easing.ease) }),
+        withTiming(0, { duration: 350, easing: Easing.inOut(Easing.ease) }),
+        withTiming(0, { duration: 700 }),
       ),
       -1,
     );
