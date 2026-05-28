@@ -4,6 +4,8 @@ import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useResumeStore } from '../src/store/resume';
+import AnimatedLogo from '../src/components/common/AnimatedLogo';
+import { track } from '../src/utils/analytics';
 
 export default function Home() {
   const insets = useSafeAreaInsets();
@@ -28,6 +30,9 @@ export default function Home() {
 
       {/* Main heading */}
       <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{ marginBottom: 20 }}>
+          <AnimatedLogo width={110} />
+        </View>
         <Text style={{ color: '#fff', fontSize: 36, fontWeight: '800', lineHeight: 48, marginBottom: 16 }}>
           나만의{'\n'}이력서를{'\n'}만들어봐요
         </Text>
@@ -40,7 +45,7 @@ export default function Home() {
       <View style={{ gap: 12 }}>
         {hasData && (
           <TouchableOpacity
-            onPress={() => router.push('/survey/1')}
+            onPress={() => { track('Home Resume Continued'); router.push('/survey/1'); }}
             style={{
               height: 56,
               borderRadius: 16,
@@ -54,7 +59,7 @@ export default function Home() {
         )}
 
         <TouchableOpacity
-          onPress={() => { reset(); router.push('/survey/1'); }}
+          onPress={() => { track('Home Resume Started', { hasExisting: hasData }); reset(); router.push('/survey/1'); }}
           style={{
             height: 60,
             borderRadius: 16,

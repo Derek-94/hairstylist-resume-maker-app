@@ -244,6 +244,7 @@ export default function Onboarding() {
 
   const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const index = Math.round(e.nativeEvent.contentOffset.x / width);
+    if (index !== activeIndex) track('Onboarding Slide Viewed', { slide: index + 1 });
     setActiveIndex(index);
   };
 

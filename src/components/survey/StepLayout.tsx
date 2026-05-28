@@ -66,7 +66,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
       {/* Edit mode: return to preview pill */}
       {isEditMode && (
         <TouchableOpacity
-          onPress={() => { setEditMode(false); router.replace('/preview'); }}
+          onPress={() => { track('Edit Mode Return To Preview', { step }); setEditMode(false); router.replace('/preview'); }}
           style={{
             marginHorizontal: 24,
             marginBottom: 8,

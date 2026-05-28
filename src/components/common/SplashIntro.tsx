@@ -1,140 +1,15 @@
 import { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue, useAnimatedStyle,
-  withRepeat, withSequence, withTiming, Easing, runOnJS,
+  withTiming, Easing, runOnJS,
 } from 'react-native-reanimated';
-import Svg, { Path } from 'react-native-svg';
-
-// Rendered size (half of 300×236)
-const W = 150;
-const H = 118;
-
-// Pen pivot = circle joint center in viewBox (725×570), scaled to rendered size
-const PIVOT_X = 261 * (W / 725); // ≈ 54
-const PIVOT_Y = 346 * (H / 570); // ≈ 71.6
-
-const STATIC_PATHS = (
-  <>
-    {/* Character body */}
-    <Path
-      d="M139 74.5986C59 74.5986 7 131.336 7 218.334C7 280.745 41 324.244 77 341.265C59 377.199 59 432.046 99 471.762C149 520.934 241 520.934 281 477.436C313 443.393 309 398.003 285 365.852C329 346.939 357 299.658 357 237.246C357 152.14 279 74.5986 199 74.5986H139Z"
-      fill="#FDFBF6"
-      stroke="#1F2547"
-      strokeWidth="14"
-      strokeLinejoin="round"
-    />
-    {/* Eyes */}
-    <Path
-      d="M107 212.599C113.075 212.599 118 206.778 118 199.599C118 192.419 113.075 186.599 107 186.599C100.925 186.599 96 192.419 96 199.599C96 206.778 100.925 212.599 107 212.599Z"
-      fill="#1F2547"
-    />
-    <Path
-      d="M199 212.599C205.075 212.599 210 206.778 210 199.599C210 192.419 205.075 186.599 199 186.599C192.925 186.599 188 192.419 188 199.599C188 206.778 192.925 212.599 199 212.599Z"
-      fill="#1F2547"
-    />
-    {/* Smile */}
-    <Path
-      d="M131 243.599C145.667 259.599 160.333 259.599 175 243.599"
-      stroke="#1F2547"
-      strokeWidth="11"
-      strokeLinecap="round"
-    />
-    {/* Document body */}
-    <Path
-      d="M293.532 21.2731C339.678 22.8602 395.183 11.9403 461.406 14.4779C521.534 15.3323 567.156 6.93306 611.201 6.62754C634.113 23.4515 671.843 55.5208 697.38 84.2236C696.944 152.34 708.492 219.828 705.955 286.051C713.508 353.749 709.496 430.063 719.047 497.656C718.725 529.717 697.487 544.849 673.416 544.108C609.294 543.463 535.814 555.325 465.701 554.994C401.893 560.341 351.648 556.966 322.003 564.528C292.044 566.098 277.121 548.855 277.653 520.789C270.1 453.091 274.111 376.777 264.56 309.184C265.101 243.065 253.553 175.577 257.983 107.251C255.471 59.3172 263.573 22.8432 293.532 21.2731Z"
-      fill="white"
-      stroke="#1F2547"
-      strokeWidth="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    {/* Document corner fold */}
-    <Path
-      d="M611.201 6.62777C633.903 19.4572 657.443 48.2647 697.38 84.2238C673.622 89.4744 635.36 85.4714 615.388 86.5181C608.349 66.8596 606.256 26.9144 611.201 6.62777Z"
-      fill="#3D5BF6"
-      stroke="#1F2547"
-      strokeWidth="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    {/* Document title bar */}
-    <Path
-      d="M525.084 121.292L337.342 131.131C331.826 131.42 327.59 136.125 327.879 141.641C328.168 147.156 332.873 151.393 338.388 151.104L526.131 141.264C531.646 140.975 535.883 136.27 535.594 130.755C535.304 125.239 530.599 121.003 525.084 121.292Z"
-      fill="#1F2547"
-    />
-    {/* Document lines */}
-    <Path
-      d="M599.602 167.455L339.958 181.063C335.546 181.294 332.157 185.058 332.388 189.47C332.619 193.883 336.383 197.272 340.796 197.041L600.439 183.433C604.852 183.202 608.241 179.438 608.01 175.026C607.778 170.614 604.014 167.224 599.602 167.455Z"
-      fill="#B6BAC4"
-    />
-    <Path
-      d="M537.469 204.758L337.743 215.225C333.331 215.456 329.942 219.22 330.173 223.633C330.404 228.045 334.168 231.434 338.581 231.203L538.306 220.736C542.719 220.505 546.108 216.74 545.877 212.328C545.646 207.916 541.881 204.526 537.469 204.758Z"
-      fill="#B6BAC4"
-      opacity="0.75"
-    />
-    <Path
-      d="M631.001 308.004L345.393 322.972C340.981 323.203 337.591 326.967 337.822 331.38C338.054 335.792 341.818 339.181 346.23 338.95L631.838 323.982C636.25 323.751 639.64 319.986 639.409 315.574C639.177 311.162 635.413 307.773 631.001 308.004Z"
-      fill="#B6BAC4"
-    />
-    <Path
-      d="M568.868 345.308L349.169 356.822C344.757 357.053 341.368 360.817 341.599 365.229C341.83 369.641 345.595 373.031 350.007 372.8L569.705 361.286C574.118 361.054 577.507 357.29 577.276 352.878C577.044 348.466 573.28 345.076 568.868 345.308Z"
-      fill="#B6BAC4"
-      opacity="0.8"
-    />
-    <Path
-      d="M604.601 377.481L346.954 390.984C342.542 391.215 339.153 394.979 339.384 399.391C339.615 403.804 343.38 407.193 347.792 406.962L605.438 393.459C609.85 393.228 613.24 389.464 613.009 385.051C612.777 380.639 609.013 377.25 604.601 377.481Z"
-      fill="#B6BAC4"
-      opacity="0.65"
-    />
-  </>
-);
-
-const PEN_PATHS = (
-  <>
-    <Path
-      d="M240.247 357.961L243.887 362.731C246.232 365.804 250.625 366.395 253.698 364.049L315.706 316.732C318.779 314.386 319.37 309.994 317.024 306.92L313.385 302.15C311.039 299.077 306.647 298.487 303.573 300.832L241.565 348.15C238.492 350.495 237.901 354.888 240.247 357.961Z"
-      fill="#3D5BF6"
-      stroke="#1F2547"
-      strokeWidth="7"
-    />
-    <Path
-      d="M256.67 336.624L268.802 352.523L273.572 348.884L261.44 332.984L256.67 336.624Z"
-      fill="#1F2547"
-    />
-    <Path
-      d="M321.271 312.484L309.138 296.585L337.464 287.549L321.271 312.484Z"
-      fill="#2A41C8"
-      stroke="#1F2547"
-      strokeWidth="7"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M261 366.599C275.359 366.599 287 357.644 287 346.599C287 335.553 275.359 326.599 261 326.599C246.641 326.599 235 335.553 235 346.599C235 357.644 246.641 366.599 261 366.599Z"
-      fill="#FDFBF6"
-      stroke="#1F2547"
-      strokeWidth="11"
-    />
-  </>
-);
+import AnimatedLogo from './AnimatedLogo';
 
 export default function SplashIntro({ onDone }: { onDone: () => void }) {
   const screenOpacity = useSharedValue(1);
-  const penAngle = useSharedValue(0);
 
   useEffect(() => {
-    // Gentle tremor — pen stays still, small slow wobble
-    penAngle.value = withRepeat(
-      withSequence(
-        withTiming(2.5, { duration: 400, easing: Easing.inOut(Easing.ease) }),
-        withTiming(-2.5, { duration: 400, easing: Easing.inOut(Easing.ease) }),
-        withTiming(2, { duration: 350, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0, { duration: 350, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0, { duration: 700 }),
-      ),
-      -1,
-    );
-
     const timer = setTimeout(() => {
       screenOpacity.value = withTiming(
         0,
@@ -147,16 +22,6 @@ export default function SplashIntro({ onDone }: { onDone: () => void }) {
 
   const screenStyle = useAnimatedStyle(() => ({ opacity: screenOpacity.value }));
 
-  const penStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: PIVOT_X },
-      { translateY: PIVOT_Y },
-      { rotate: `${penAngle.value}deg` },
-      { translateX: -PIVOT_X },
-      { translateY: -PIVOT_Y },
-    ],
-  }));
-
   return (
     <Animated.View
       style={[
@@ -165,18 +30,7 @@ export default function SplashIntro({ onDone }: { onDone: () => void }) {
         screenStyle,
       ]}
     >
-      <View style={{ width: W, height: H }}>
-        {/* Static layer */}
-        <Svg width={W} height={H} viewBox="0 0 725 570" fill="none">
-          {STATIC_PATHS}
-        </Svg>
-        {/* Pen layer — animated via RN transform */}
-        <Animated.View style={[StyleSheet.absoluteFill, penStyle]}>
-          <Svg width={W} height={H} viewBox="0 0 725 570" fill="none">
-            {PEN_PATHS}
-          </Svg>
-        </Animated.View>
-      </View>
+      <AnimatedLogo width={150} />
     </Animated.View>
   );
 }
