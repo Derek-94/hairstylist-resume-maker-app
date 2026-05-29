@@ -11,6 +11,7 @@ interface Props {
   canNext: boolean;
   onNext: () => void;
   onSkip?: () => void;
+  onSave?: () => void;
   nextLabel?: string;
   children: React.ReactNode;
   scrollViewRef?: RefObject<ScrollView>;
@@ -22,7 +23,7 @@ const STEP_NAMES: Record<number, string> = {
   11: '경력', 12: '자격증', 13: '포트폴리오', 14: '자기소개',
 };
 
-export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, nextLabel, children, scrollViewRef }: Props) {
+export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, onSave, nextLabel, children, scrollViewRef }: Props) {
   const insets = useSafeAreaInsets();
   const progress = step / total;
   const { isEditMode, setEditMode } = useResumeStore();
@@ -66,7 +67,7 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
       {/* Edit mode: return to preview pill */}
       {isEditMode && (
         <TouchableOpacity
-          onPress={() => { track('Edit Mode Return To Preview', { step }); setEditMode(false); router.replace('/preview'); }}
+          onPress={() => { onSave?.(); track('Edit Mode Return To Preview', { step }); setEditMode(false); router.replace('/preview'); }}
           style={{
             marginHorizontal: 24,
             marginBottom: 8,

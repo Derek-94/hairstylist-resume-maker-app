@@ -14,7 +14,8 @@
       "backgroundColor": "#0f0f0f"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
+      "buildNumber": "10",
       "bundleIdentifier": "com.clipr.app"
     },
     "android": {

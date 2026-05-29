@@ -20,7 +20,7 @@ export default function Step12Certifications() {
   };
 
   return (
-    <StepLayout step={12} canNext={value.trim().length > 0} onNext={handleNext} onSkip={skip}>
+    <StepLayout step={12} canNext={value.trim().length > 0} onNext={handleNext} onSkip={skip} onSave={() => { if (value.trim()) update({ certifications: value.trim() }); }}>
       <QuestionTitle>자격증을 입력해주세요</QuestionTitle>
       <TextInput
         value={value}

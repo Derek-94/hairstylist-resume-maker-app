@@ -23,7 +23,7 @@ export default function Step14Introduction() {
   };
 
   return (
-    <StepLayout step={14} canNext={value.trim().length > 0} onNext={handleNext} onSkip={skip} nextLabel="완료">
+    <StepLayout step={14} canNext={value.trim().length > 0} onNext={handleNext} onSkip={skip} nextLabel="완료" onSave={() => { if (value.trim()) update({ introduction: value.trim() }); }}>
       <QuestionTitle>한 줄 자기소개를 작성해주세요</QuestionTitle>
       <TextInput
         value={value}

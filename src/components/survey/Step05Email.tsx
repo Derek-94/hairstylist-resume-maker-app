@@ -22,7 +22,7 @@ export default function Step05Email() {
   };
 
   return (
-    <StepLayout step={5} canNext={isValid} onNext={handleNext} onSkip={() => { update({ email: '' }); router.push('/survey/6'); }}>
+    <StepLayout step={5} canNext={isValid} onNext={handleNext} onSkip={() => { update({ email: '' }); router.push('/survey/6'); }} onSave={() => { if (isValid) update({ email: trimmed }); }}>
       <QuestionTitle>이메일 주소를 알려주세요</QuestionTitle>
       <UnderlineInput
         placeholder="example@email.com"

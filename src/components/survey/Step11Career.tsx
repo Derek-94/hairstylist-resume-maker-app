@@ -20,7 +20,7 @@ export default function Step11Career() {
   };
 
   return (
-    <StepLayout step={11} canNext={!!level} onNext={handleNext} scrollViewRef={scrollRef}>
+    <StepLayout step={11} canNext={!!level} onNext={handleNext} scrollViewRef={scrollRef} onSave={() => { if (level) update({ careerLevel: level, careerDetail: detail }); }}>
       <QuestionTitle>경력을 선택해주세요</QuestionTitle>
       <View style={{ gap: 10, marginBottom: 28 }}>
         {OPTIONS.map(([value, label]) => (

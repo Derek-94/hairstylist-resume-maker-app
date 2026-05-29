@@ -56,7 +56,7 @@ export default function Step02Birth() {
   const minDate = new Date(1930, 0, 1);
 
   return (
-    <StepLayout step={2} canNext={selected} onNext={handleNext}>
+    <StepLayout step={2} canNext={selected} onNext={handleNext} onSkip={() => { update({ birthDate: '' }); router.push('/survey/3'); }} onSave={() => { if (selected) update({ birthDate: dateToString(date) }); }}>
       <QuestionTitle>생년월일을 알려주세요</QuestionTitle>
 
       {selected && (

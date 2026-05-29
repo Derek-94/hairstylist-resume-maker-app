@@ -58,7 +58,7 @@ export default function Step08AvailableDate() {
   };
 
   return (
-    <StepLayout step={8} canNext={mode !== 'none'} onNext={handleNext}>
+    <StepLayout step={8} canNext={mode !== 'none'} onNext={handleNext} onSave={() => { if (mode !== 'none') update({ availableStartDate: mode === 'negotiable' ? NEGOTIABLE : dateToString(date) }); }}>
       <QuestionTitle>입사 가능일을 알려주세요</QuestionTitle>
 
       {/* Mode selector */}

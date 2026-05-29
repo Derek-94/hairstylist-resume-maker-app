@@ -15,7 +15,7 @@ export default function Step06Address() {
   };
 
   return (
-    <StepLayout step={6} canNext={value.trim().length > 0} onNext={handleNext} onSkip={() => { update({ address: '' }); router.push('/survey/7'); }}>
+    <StepLayout step={6} canNext={value.trim().length > 0} onNext={handleNext} onSkip={() => { update({ address: '' }); router.push('/survey/7'); }} onSave={() => { if (value.trim()) update({ address: value.trim() }); }}>
       <QuestionTitle>거주 지역을 알려주세요</QuestionTitle>
       <UnderlineInput
         placeholder="서울시 강남구"

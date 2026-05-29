@@ -52,7 +52,7 @@ export default function Step10Skills() {
   };
 
   return (
-    <StepLayout step={10} canNext={selected.length > 0} onNext={handleNext} scrollViewRef={scrollViewRef}>
+    <StepLayout step={10} canNext={selected.length > 0} onNext={handleNext} scrollViewRef={scrollViewRef} onSave={() => { if (selected.length > 0) update({ skills: selected }); }}>
       <QuestionTitle>보유 기술을 선택해주세요</QuestionTitle>
 
       {/* Category accordion */}

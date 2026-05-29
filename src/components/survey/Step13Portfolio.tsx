@@ -64,7 +64,7 @@ export default function Step13Portfolio() {
   const MAX = 6;
 
   return (
-    <StepLayout step={13} canNext={items.length > 0} onNext={handleNext} onSkip={skip}>
+    <StepLayout step={13} canNext={items.length > 0} onNext={handleNext} onSkip={skip} onSave={() => { if (items.length > 0) update({ portfolio: items }); }}>
       <QuestionTitle>포트폴리오 사진을 올려주세요</QuestionTitle>
 
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 16 }}>

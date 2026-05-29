@@ -15,7 +15,7 @@ export default function Step01Name() {
   };
 
   return (
-    <StepLayout step={1} canNext={value.trim().length > 0} onNext={handleNext}>
+    <StepLayout step={1} canNext={value.trim().length > 0} onNext={handleNext} onSave={() => { if (value.trim()) update({ name: value.trim() }); }}>
       <QuestionTitle>이름이 무엇인가요?</QuestionTitle>
       <UnderlineInput
         placeholder="홍길동"

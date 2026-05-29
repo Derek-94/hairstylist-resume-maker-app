@@ -65,7 +65,7 @@ export default function Step04Phone() {
   };
 
   return (
-    <StepLayout step={4} canNext={isValid} onNext={handleNext}>
+    <StepLayout step={4} canNext={isValid} onNext={handleNext} onSkip={() => { update({ phone: '' }); router.push('/survey/5'); }} onSave={() => { if (isValid) update({ phone }); }}>
       <QuestionTitle>연락처를 입력해주세요</QuestionTitle>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
