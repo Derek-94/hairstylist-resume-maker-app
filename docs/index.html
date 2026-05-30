@@ -585,12 +585,12 @@
         min-height: 70vh;
         padding: 24px 0;
       }
-      .showcase-step:last-child { min-height: 150vh; justify-content: flex-start; padding-top: 32px; }
+      .showcase-step:last-child { min-height: 70vh; margin-bottom: 80vh; }
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
       .showcase-section + section {
-        margin-top: -120vh;
+        margin-top: -80vh;
         position: relative;
         z-index: 10;
         background: var(--bg);
@@ -812,10 +812,24 @@
 
     // step 4: watch h3 so image switches as soon as text enters viewport
     const lastStepH3 = document.querySelector('.showcase-step:last-child h3');
+    const showcasePhoneCol = document.querySelector('.showcase-phone-col');
     const lastStepObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(3); });
     }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
     lastStepObserver.observe(lastStepH3);
+
+    // hide phone when step4 h3 exits top (before push causes clipping)
+    const phoneHideObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (window.innerWidth > 680) return;
+        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+          showcasePhoneCol.style.opacity = '0';
+        } else {
+          showcasePhoneCol.style.opacity = '1';
+        }
+      });
+    }, { threshold: 0 });
+    phoneHideObserver.observe(lastStepH3);
 
   </script>
 </body>
