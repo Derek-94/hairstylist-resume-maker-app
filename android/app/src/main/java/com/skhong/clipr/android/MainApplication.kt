@@ -1,4 +1,4 @@
-package com.clipr.app
+package com.skhong.clipr.android
 
 import android.app.Application
 import android.content.res.Configuration

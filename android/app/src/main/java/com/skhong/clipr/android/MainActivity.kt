@@ -1,4 +1,4 @@
-package com.clipr.app
+package com.skhong.clipr.android
 
 import android.os.Build
 import android.os.Bundle
