@@ -794,7 +794,7 @@
         s.classList.toggle('hidden', i !== index);
       });
       if (window.innerWidth <= 680) {
-        phoneFrame.style.transform = 'translateY(' + (index * 32) + 'px)';
+        phoneFrame.style.transform = index === 3 ? 'translateY(90px)' : 'translateY(0)';
       }
     }
 
