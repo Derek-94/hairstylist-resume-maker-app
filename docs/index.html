@@ -567,27 +567,20 @@
         padding: 0 12px;
       }
       .showcase-phone-col {
-        position: relative;
-        top: unset;
-        height: auto;
-        padding: 0;
-        pointer-events: none;
+        top: 57px;
+        height: 100vh;
+        padding: 20vh 8px 20px;
       }
       .showcase-phone-frame {
-        position: fixed;
-        top: calc(57px + 20vh);
-        left: calc(25vw - 60px);
         width: 120px;
         height: 260px;
         border-radius: 28px;
-        z-index: 10;
-        opacity: 0;
       }
       .showcase-phone-frame::before {
         width: 52px;
         height: 16px;
       }
-      .showcase-steps-col { padding: 24px 8px 20px 12px; }
+      .showcase-steps-col { padding: 24px 8px 100vh 12px; }
       .showcase-step {
         min-height: 70vh;
         padding: 24px 0;
@@ -596,6 +589,12 @@
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
+      .showcase-section + section {
+        margin-top: -100vh;
+        position: relative;
+        z-index: 2;
+        background: var(--bg);
+      }
     }
   </style>
 </head>
@@ -811,23 +810,20 @@
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
 
-    // mobile: phone frame is position:fixed — show/hide via scroll
-    const mobilePhoneFrame = document.querySelector('.showcase-phone-frame');
-    const stepsColEl = document.querySelector('.showcase-steps-col');
-    const lastStepEl = document.querySelector('.showcase-step:last-child');
-
-    function updateMobilePhone() {
-      if (window.innerWidth > 680) return;
-      const stepsRect = stepsColEl.getBoundingClientRect();
-      const lastRect = lastStepEl.getBoundingClientRect();
-      const navH = 57;
-      const inShowcase = stepsRect.top < window.innerHeight && stepsRect.bottom > navH;
-      const step4Visible = lastRect.bottom > navH + 40;
-      mobilePhoneFrame.style.opacity = (inShowcase && step4Visible) ? '1' : '0';
-    }
-
-    window.addEventListener('scroll', updateMobilePhone, { passive: true });
-    updateMobilePhone();
+    // hide phone on mobile once last step scrolls off top
+    const phoneCol = document.querySelector('.showcase-phone-col');
+    const lastStep = document.querySelector('.showcase-step:last-child');
+    const exitObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (window.innerWidth > 680) return;
+        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+          phoneCol.style.opacity = '0';
+        } else {
+          phoneCol.style.opacity = '1';
+        }
+      });
+    }, { threshold: 0 });
+    exitObserver.observe(lastStep);
   </script>
 </body>
 </html>
