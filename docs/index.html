@@ -464,6 +464,97 @@
     .fade-up-delay-3 { transition-delay: 0.3s; }
     .fade-up-delay-4 { transition-delay: 0.4s; }
 
+    /* SHOWCASE (sticky scroll) */
+    .showcase-section { padding: 0; overflow: hidden; }
+    .showcase-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+    .showcase-phone-col {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+    .showcase-phone-frame {
+      width: 220px;
+      height: 476px;
+      border-radius: 40px;
+      border: 2px solid #2a2a2a;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px #1e1e1e, inset 0 0 0 1px #333;
+    }
+    .showcase-phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 24px;
+      background: #111;
+      border-radius: 0 0 14px 14px;
+      z-index: 10;
+    }
+    .showcase-screen {
+      position: absolute;
+      inset: 0;
+      transition: opacity 0.4s ease;
+    }
+    .showcase-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .showcase-screen.hidden { opacity: 0; pointer-events: none; }
+    .showcase-screen.active { opacity: 1; }
+
+    .showcase-steps-col {
+      display: flex;
+      flex-direction: column;
+      padding: 80px 32px 80px 16px;
+    }
+    .showcase-step {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0.3;
+      transition: opacity 0.4s ease;
+    }
+    .showcase-step:last-child { border-bottom: none; }
+    .showcase-step.active { opacity: 1; }
+    .showcase-step-num {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .showcase-step h3 {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .showcase-step p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 680px) {
       nav { padding: 16px 20px; }
@@ -471,6 +562,10 @@
       .steps-visual { display: none; }
       .footer-inner { justify-content: center; text-align: center; }
       .footer-links { justify-content: center; }
+      .showcase-inner { grid-template-columns: 1fr; }
+      .showcase-phone-col { display: none; }
+      .showcase-steps-col { padding: 40px 24px; }
+      .showcase-step { min-height: auto; opacity: 1; }
     }
   </style>
 </head>
@@ -502,6 +597,42 @@
     </div>
     <div class="hero-scroll">
       <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section class="showcase-section">
+    <div class="showcase-inner">
+      <div class="showcase-phone-col">
+        <div class="showcase-phone-frame">
+          <div class="showcase-screen active" id="sc0"><img src="screen1.png" alt="홈 화면" /></div>
+          <div class="showcase-screen hidden" id="sc1"><img src="screen2.png" alt="이름 입력" /></div>
+          <div class="showcase-screen hidden" id="sc2"><img src="screen3.png" alt="기술 선택" /></div>
+          <div class="showcase-screen hidden" id="sc3"><img src="screen4.png" alt="미리보기" /></div>
+        </div>
+      </div>
+      <div class="showcase-steps-col">
+        <div class="showcase-step active" data-screen="0">
+          <div class="showcase-step-num">01</div>
+          <h3>앱을 열면<br />바로 시작</h3>
+          <p>복잡한 회원가입 없이 바로 이력서 작성을 시작할 수 있어요. 이전에 쓰던 내용도 자동으로 저장됩니다.</p>
+        </div>
+        <div class="showcase-step" data-screen="1">
+          <div class="showcase-step-num">02</div>
+          <h3>질문에<br />답하기만 해요</h3>
+          <p>한 화면에 질문 하나씩. 이름, 연락처, 학력 등 14가지 질문에 순서대로 답하면 됩니다.</p>
+        </div>
+        <div class="showcase-step" data-screen="2">
+          <div class="showcase-step-num">03</div>
+          <h3>보유 기술을<br />골라주세요</h3>
+          <p>헤어·네일·피부·제빵 등 직종별 기술 목록에서 선택하거나 직접 입력할 수 있어요.</p>
+        </div>
+        <div class="showcase-step" data-screen="3">
+          <div class="showcase-step-num">04</div>
+          <h3>이력서가<br />완성됐어요</h3>
+          <p>미리보기로 확인하고 PDF 또는 이미지로 저장하세요. 카카오톡으로 바로 전송도 됩니다.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -617,16 +748,39 @@
   </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
+    // fade-up on scroll
+    const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          observer.unobserve(e.target);
+          fadeObserver.unobserve(e.target);
         }
       });
     }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    // sticky showcase scroll
+    const showcaseSteps = document.querySelectorAll('.showcase-step');
+    const screens = document.querySelectorAll('.showcase-screen');
+
+    function setActive(index) {
+      showcaseSteps.forEach((s, i) => s.classList.toggle('active', i === index));
+      screens.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+        s.classList.toggle('hidden', i !== index);
+      });
+    }
+
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = parseInt(e.target.dataset.screen);
+          setActive(idx);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    showcaseSteps.forEach(el => stepObserver.observe(el));
   </script>
 </body>
 </html>
