@@ -555,8 +555,9 @@
       max-width: 320px;
     }
 
-    /* top mask: hides phone as it scrolls behind nav */
+    /* RESPONSIVE */
     @media (max-width: 680px) {
+      /* top mask: hides the showcase phone as it scrolls up behind the nav */
       body::before {
         content: '';
         position: fixed;
@@ -566,10 +567,6 @@
         z-index: 99;
         pointer-events: none;
       }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 680px) {
       nav { padding: 16px 20px; }
       .steps-wrapper { grid-template-columns: 1fr; gap: 40px; }
       .steps-visual { display: none; }
@@ -823,13 +820,12 @@
 
     Array.from(showcaseSteps).slice(0, 3).forEach(el => stepObserver.observe(el));
 
-    // step 4: switch to screen4 when h3 enters viewport
+    // step 4: switch to screen4 when its heading enters the viewport
     const lastStepH3 = document.querySelector('.showcase-step:last-child h3');
     const lastStepObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(3); });
-    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    }, { threshold: 0 });
     lastStepObserver.observe(lastStepH3);
-
   </script>
 </body>
 </html>
