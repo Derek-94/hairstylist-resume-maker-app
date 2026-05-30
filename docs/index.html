@@ -580,21 +580,15 @@
         width: 52px;
         height: 16px;
       }
-      .showcase-steps-col { padding: 24px 8px 100vh 12px; }
+      .showcase-steps-col { padding: 24px 8px 0 12px; }
       .showcase-step {
         min-height: 70vh;
         padding: 24px 0;
       }
-      .showcase-step:last-child { min-height: 35vh; }
+      .showcase-step:last-child { min-height: 100vh; }
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
-      .showcase-section + section {
-        margin-top: -100vh;
-        position: relative;
-        z-index: 2;
-        background: var(--bg);
-      }
     }
   </style>
 </head>
@@ -806,24 +800,10 @@
           setActive(idx);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
 
-    // hide phone on mobile once last step scrolls off top
-    const phoneCol = document.querySelector('.showcase-phone-col');
-    const lastStep = document.querySelector('.showcase-step:last-child');
-    const exitObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (window.innerWidth > 680) return;
-        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
-          phoneCol.style.opacity = '0';
-        } else {
-          phoneCol.style.opacity = '1';
-        }
-      });
-    }, { threshold: 0 });
-    exitObserver.observe(lastStep);
   </script>
 </body>
 </html>
