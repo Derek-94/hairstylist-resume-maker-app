@@ -784,17 +784,12 @@
     // sticky showcase scroll
     const showcaseSteps = document.querySelectorAll('.showcase-step');
     const screens = document.querySelectorAll('.showcase-screen');
-    const phoneFrame = document.querySelector('.showcase-phone-frame');
-
     function setActive(index) {
       showcaseSteps.forEach((s, i) => s.classList.toggle('active', i === index));
       screens.forEach((s, i) => {
         s.classList.toggle('active', i === index);
         s.classList.toggle('hidden', i !== index);
       });
-      if (window.innerWidth <= 680) {
-        phoneFrame.style.transform = index === 3 ? 'translateY(90px)' : 'translateY(0)';
-      }
     }
 
     const stepObserver = new IntersectionObserver((entries) => {
