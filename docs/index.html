@@ -570,7 +570,6 @@
         top: 57px;
         height: 100vh;
         padding: 20vh 8px 20px;
-        opacity: 0;
       }
       .showcase-phone-frame {
         width: 120px;
@@ -813,20 +812,10 @@
 
     // step 4: switch to screen4 when h3 enters viewport
     const lastStepH3 = document.querySelector('.showcase-step:last-child h3');
-    const showcasePhoneCol = document.querySelector('.showcase-phone-col');
     const lastStepObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(3); });
     }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
     lastStepObserver.observe(lastStepH3);
-
-    // mobile: show phone only while step4 h3 is below nav, hide otherwise
-    function updateMobilePhone() {
-      if (window.innerWidth > 680) return;
-      const h3Bottom = lastStepH3.getBoundingClientRect().bottom;
-      showcasePhoneCol.style.opacity = h3Bottom > 57 ? '1' : '0';
-    }
-    window.addEventListener('scroll', updateMobilePhone, { passive: true });
-    updateMobilePhone();
 
   </script>
 </body>
