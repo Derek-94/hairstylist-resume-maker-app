@@ -529,7 +529,7 @@
       padding: 40px 0;
       border-bottom: 1px solid var(--border);
       opacity: 0.3;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.15s ease;
     }
     .showcase-step:last-child { border-bottom: none; }
     .showcase-step.active { opacity: 1; }
@@ -585,7 +585,7 @@
         min-height: 70vh;
         padding: 24px 0;
       }
-      .showcase-step:last-child { min-height: 150vh; }
+      .showcase-step:last-child { min-height: 150vh; justify-content: flex-start; padding-top: 32px; }
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
@@ -800,7 +800,7 @@
           setActive(idx);
         }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold: 0, rootMargin: '-15% 0px -35% 0px' });
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
 
