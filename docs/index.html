@@ -582,7 +582,7 @@
       }
       .showcase-steps-col { padding: 24px 8px 20px 12px; }
       .showcase-step {
-        min-height: 55vh;
+        min-height: 70vh;
         padding: 24px 0;
       }
       .showcase-step h3 { font-size: 18px; }
@@ -804,7 +804,7 @@
           setActive(idx);
         }
       });
-    }, { threshold: 0.5 });
+    }, { rootMargin: '-20% 0px -20% 0px', threshold: 0 });
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
   </script>
