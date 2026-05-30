@@ -563,28 +563,30 @@
       .footer-inner { justify-content: center; text-align: center; }
       .footer-links { justify-content: center; }
       .showcase-inner {
-        display: block;
+        grid-template-columns: 1fr 1fr;
+        padding: 0 12px;
       }
       .showcase-phone-col {
-        position: sticky;
         top: 57px;
-        height: 280px;
-        padding: 12px 20px;
-        background: var(--bg);
-        z-index: 10;
-        border-bottom: 1px solid var(--border);
+        height: 100vh;
+        padding: 20px 8px;
       }
       .showcase-phone-frame {
-        width: 118px;
-        height: 255px;
-        border-radius: 26px;
+        width: 120px;
+        height: 260px;
+        border-radius: 28px;
       }
       .showcase-phone-frame::before {
         width: 52px;
         height: 16px;
       }
-      .showcase-steps-col { padding: 32px 24px 60px; }
-      .showcase-step { min-height: 70vh; opacity: 1; }
+      .showcase-steps-col { padding: 24px 8px 60px 12px; }
+      .showcase-step {
+        min-height: 80vh;
+        padding: 24px 0;
+      }
+      .showcase-step h3 { font-size: 18px; }
+      .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
     }
   </style>
