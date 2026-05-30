@@ -555,6 +555,19 @@
       max-width: 320px;
     }
 
+    /* top mask: hides phone as it scrolls behind nav */
+    @media (max-width: 680px) {
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 57px;
+        background: var(--bg);
+        z-index: 99;
+        pointer-events: none;
+      }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 680px) {
       nav { padding: 16px 20px; }
