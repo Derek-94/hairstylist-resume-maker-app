@@ -809,6 +809,21 @@
     }, { threshold: 0.3 });
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
+
+    // hide phone on mobile once last step scrolls off top
+    const phoneCol = document.querySelector('.showcase-phone-col');
+    const lastStep = document.querySelector('.showcase-step:last-child');
+    const exitObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (window.innerWidth > 680) return;
+        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+          phoneCol.style.opacity = '0';
+        } else {
+          phoneCol.style.opacity = '1';
+        }
+      });
+    }, { threshold: 0 });
+    exitObserver.observe(lastStep);
   </script>
 </body>
 </html>
