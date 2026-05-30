@@ -589,6 +589,12 @@
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
+      .showcase-section + section {
+        margin-top: -120vh;
+        position: relative;
+        z-index: 10;
+        background: var(--bg);
+      }
     }
   </style>
 </head>
@@ -800,9 +806,16 @@
           setActive(idx);
         }
       });
-    }, { threshold: 0, rootMargin: '-15% 0px -35% 0px' });
+    }, { threshold: 0.3, rootMargin: '0px 0px -20% 0px' });
 
-    showcaseSteps.forEach(el => stepObserver.observe(el));
+    Array.from(showcaseSteps).slice(0, 3).forEach(el => stepObserver.observe(el));
+
+    // step 4: watch h3 so image switches as soon as text enters viewport
+    const lastStepH3 = document.querySelector('.showcase-step:last-child h3');
+    const lastStepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(3); });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    lastStepObserver.observe(lastStepH3);
 
   </script>
 </body>
