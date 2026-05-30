@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>뚝딱이력서 — 5분 만에 이력서 완성</title>
+  <meta name="description" content="취업 준비생을 위한 이력서 생성 앱. 질문에 답하면 PDF로 바로 저장됩니다." />
+  <meta property="og:title" content="뚝딱이력서" />
+  <meta property="og:description" content="질문에 답하면 이력서 완성. PDF·이미지로 바로 저장, 카카오톡으로 공유." />
+  <meta property="og:type" content="website" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --card: #161616;
+      --card2: #1e1e1e;
+      --primary: #3D5BF6;
+      --primary-dim: rgba(61, 91, 246, 0.15);
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #2a2a2a;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 100px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61, 91, 246, 0.18) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(61, 91, 246, 0.3);
+      color: #8da5ff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .hero h1 {
+      font-size: clamp(36px, 8vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--primary); }
+    .hero p {
+      font-size: clamp(15px, 2.5vw, 19px);
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 14px;
+      transition: all 0.2s;
+      box-shadow: 0 0 40px rgba(61, 91, 246, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 50px rgba(61, 91, 246, 0.5);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card2);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: #252525;
+      transform: translateY(-2px);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollDown 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+      100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+    }
+
+    /* SECTIONS */
+    section { padding: 100px 24px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(61, 91, 246, 0.4);
+      background: #181818;
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(61, 91, 246, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* STEPS */
+    .steps-section { background: var(--card); }
+    .steps-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 56px;
+    }
+    .steps-list { display: flex; flex-direction: column; gap: 0; }
+    .step-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: default;
+    }
+    .step-item:last-child { border-bottom: none; }
+    .step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--primary-dim);
+      border: 1px solid rgba(61, 91, 246, 0.3);
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .step-content p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .steps-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-mockup {
+      width: 220px;
+      height: 420px;
+      background: #111;
+      border-radius: 36px;
+      border: 2px solid #2a2a2a;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px #1e1e1e;
+    }
+    .phone-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px 16px;
+    }
+    .phone-bar {
+      height: 3px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .phone-bar-fill {
+      height: 100%;
+      width: 60%;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .phone-step-num {
+      font-size: 11px;
+      color: #555;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .phone-question {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.3;
+      margin-bottom: 32px;
+    }
+    .phone-input-mock {
+      background: #1e1e1e;
+      border-radius: 10px;
+      height: 48px;
+      margin-bottom: 12px;
+      border: 1px solid #2a2a2a;
+    }
+    .phone-btn-mock {
+      margin-top: auto;
+      height: 48px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+    }
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-dim) 0%, transparent 100%);
+      border: 1px solid rgba(61, 91, 246, 0.25);
+      border-radius: 24px;
+      padding: 64px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+    .cta-box h2 {
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .cta-box p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 12px;
+      color: #555;
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* ANIMATE ON SCROLL */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav { padding: 16px 20px; }
+      .steps-wrapper { grid-template-columns: 1fr; gap: 40px; }
+      .steps-visual { display: none; }
+      .footer-inner { justify-content: center; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">뚝딱이력서</a>
+    <a href="https://apps.apple.com/kr/app/%EB%9A%9D%EB%94%B1%EC%9D%B4%EB%A0%A5%EC%84%9C/id6772397044" class="nav-cta" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      App Store
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      App Store 출시
+    </div>
+    <h1>이력서,<br /><span class="accent">뚝딱</span> 만들어드려요</h1>
+    <p>취업 준비생을 위한 이력서 생성 앱.<br />질문에 답하면 PDF로 바로 저장됩니다.</p>
+    <div class="hero-actions">
+      <a href="https://apps.apple.com/kr/app/%EB%9A%9D%EB%94%B1%EC%9D%B4%EB%A0%A5%EC%84%9C/id6772397044" class="btn-primary" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store에서 무료 다운로드
+      </a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">이력서, 이제<br />어렵지 않아요</h2>
+        <p class="section-sub">처음 써보는 이력서도 괜찮아요. 질문에 답하기만 하면 됩니다.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up fade-up-delay-1">
+          <div class="feature-icon">✏️</div>
+          <h3>질문에 답하면 완성</h3>
+          <p>복잡한 양식 없이 한 번에 질문 하나씩. 14단계만 거치면 이력서가 완성됩니다.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-2">
+          <div class="feature-icon">📄</div>
+          <h3>PDF·이미지로 저장</h3>
+          <p>완성된 이력서를 PDF 파일이나 이미지로 저장할 수 있어요. 고화질 그대로.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-3">
+          <div class="feature-icon">🖼️</div>
+          <h3>포트폴리오 첨부</h3>
+          <p>갤러리에서 작업 사진을 선택하면 이력서 2페이지에 자동으로 정리됩니다.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-4">
+          <div class="feature-icon">💬</div>
+          <h3>카카오톡으로 바로 공유</h3>
+          <p>저장하고 바로 공유. 카카오톡, 이메일 등 원하는 방법으로 전송하세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-section">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-label">How it works</div>
+        <h2 class="section-title">3단계면<br />충분합니다</h2>
+        <p class="section-sub">한 번도 이력서를 써본 적 없어도 괜찮아요.</p>
+      </div>
+      <div class="steps-wrapper">
+        <div class="steps-list">
+          <div class="step-item fade-up fade-up-delay-1">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>정보 입력</h4>
+              <p>이름, 연락처, 학력, 기술 등 14가지 질문에 순서대로 답해요. 한 화면에 질문 하나씩.</p>
+            </div>
+          </div>
+          <div class="step-item fade-up fade-up-delay-2">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>미리보기 확인</h4>
+              <p>완성된 이력서를 미리 확인하세요. 수정이 필요하면 언제든 돌아갈 수 있어요.</p>
+            </div>
+          </div>
+          <div class="step-item fade-up fade-up-delay-3">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>저장 & 공유</h4>
+              <p>PDF 또는 이미지로 저장하고 카카오톡으로 바로 전송. 인쇄도 지원합니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="steps-visual fade-up fade-up-delay-2">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="phone-bar"><div class="phone-bar-fill"></div></div>
+              <div class="phone-step-num">01 / 14</div>
+              <div class="phone-question">이름이<br />무엇인가요?</div>
+              <div class="phone-input-mock"></div>
+              <div class="phone-btn-mock">→</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box fade-up">
+        <h2>지금 바로<br />이력서를 만들어보세요</h2>
+        <p>무료로 사용할 수 있어요.<br />다운로드하고 5분 안에 첫 이력서를 완성하세요.</p>
+        <div class="cta-actions">
+          <a href="https://apps.apple.com/kr/app/%EB%9A%9D%EB%94%B1%EC%9D%B4%EB%A0%A5%EC%84%9C/id6772397044" class="btn-primary" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store 무료 다운로드
+          </a>
+          <a href="https://forms.gle/uKUzZU2BNEAAsu7J8" class="btn-secondary" target="_blank">
+            피드백 보내기
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">뚝딱이력서</span>
+      <div class="footer-links">
+        <a href="https://forms.gle/uKUzZU2BNEAAsu7J8" target="_blank">문의하기</a>
+        <a href="https://apps.apple.com/kr/app/%EB%9A%9D%EB%94%B1%EC%9D%B4%EB%A0%A5%EC%84%9C/id6772397044" target="_blank">App Store</a>
+      </div>
+      <p class="footer-copy">© 2026 Derek. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

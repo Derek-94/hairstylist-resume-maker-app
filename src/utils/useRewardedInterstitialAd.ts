@@ -7,7 +7,7 @@ const AD_UNIT_ID = __DEV__
   ? TestIds.REWARDED_INTERSTITIAL
   : Platform.OS === 'ios'
     ? 'ca-app-pub-2912972164662879/1133791299'
-    : 'ca-app-pub-2912972164662879/1133791299';
+    : 'ca-app-pub-2912972164662879/6130344989';
 
 export function useRewardedInterstitialAd() {
   const adRef = useRef<RewardedInterstitialAd | null>(null);
