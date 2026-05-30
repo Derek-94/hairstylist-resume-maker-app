@@ -580,7 +580,7 @@
         width: 52px;
         height: 16px;
       }
-      .showcase-steps-col { padding: 24px 8px 20px 12px; }
+      .showcase-steps-col { padding: 24px 8px 100vh 12px; }
       .showcase-step {
         min-height: 70vh;
         padding: 24px 0;
@@ -589,6 +589,12 @@
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
+      .showcase-section + section {
+        margin-top: -100vh;
+        position: relative;
+        z-index: 2;
+        background: var(--bg);
+      }
     }
   </style>
 </head>
