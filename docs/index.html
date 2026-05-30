@@ -585,6 +585,7 @@
         min-height: 70vh;
         padding: 24px 0;
       }
+      .showcase-step:last-child { min-height: 35vh; }
       .showcase-step h3 { font-size: 18px; }
       .showcase-step p { font-size: 13px; }
       .showcase-step.active h3 { color: var(--primary); }
@@ -799,7 +800,7 @@
           setActive(idx);
         }
       });
-    }, { rootMargin: '-20% 0px -20% 0px', threshold: 0 });
+    }, { threshold: 0.3 });
 
     showcaseSteps.forEach(el => stepObserver.observe(el));
   </script>
