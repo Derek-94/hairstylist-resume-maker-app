@@ -562,10 +562,32 @@
       .steps-visual { display: none; }
       .footer-inner { justify-content: center; text-align: center; }
       .footer-links { justify-content: center; }
-      .showcase-inner { grid-template-columns: 1fr; }
-      .showcase-phone-col { display: none; }
-      .showcase-steps-col { padding: 40px 24px; }
-      .showcase-step { min-height: auto; opacity: 1; }
+      .showcase-inner {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+      }
+      .showcase-phone-col {
+        position: sticky;
+        top: 57px;
+        height: auto;
+        padding: 16px 20px;
+        background: var(--bg);
+        z-index: 10;
+        border-bottom: 1px solid var(--border);
+      }
+      .showcase-phone-frame {
+        width: 130px;
+        height: 282px;
+        border-radius: 28px;
+      }
+      .showcase-phone-frame::before {
+        width: 56px;
+        height: 18px;
+      }
+      .showcase-steps-col { padding: 32px 24px 60px; }
+      .showcase-step { min-height: 70vh; opacity: 1; }
+      .showcase-step.active h3 { color: var(--primary); }
     }
   </style>
 </head>
