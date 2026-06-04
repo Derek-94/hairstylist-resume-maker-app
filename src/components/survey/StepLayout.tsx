@@ -31,7 +31,10 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: '#0f0f0f' }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // Android는 Manifest의 adjustResize가 키보드 영역을 처리한다.
+      // 여기서 behavior='height'를 주면 이중 처리되어 키보드를 내릴 때
+      // 하단에 윈도우 배경(흰색)이 드러난다. iOS만 padding 사용.
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       {/* Safe area spacer + progress bar */}
       <View style={{ paddingTop: insets.top }}>
