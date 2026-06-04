@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
+import AndroidDatePicker from '../common/AndroidDatePicker';
 
 const NEGOTIABLE = '협의 필요';
 
@@ -87,24 +88,34 @@ export default function Step08AvailableDate() {
 
       {/* Date picker */}
       {mode === 'date' && (
-        <>
-          <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 12 }}>
-            {displayDate(dateToString(date))}
-          </Text>
-          <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={(_: unknown, d?: Date) => { if (d) setDate(d); }}
-              minimumDate={today}
-              maximumDate={maxDate}
-              locale="ko-KR"
-              textColor="#ffffff"
-              style={{ height: 200 }}
-            />
-          </View>
-        </>
+        Platform.OS === 'android' ? (
+          <AndroidDatePicker
+            value={date}
+            hasValue={true}
+            onChange={setDate}
+            minimumDate={today}
+            maximumDate={maxDate}
+          />
+        ) : (
+          <>
+            <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 12 }}>
+              {displayDate(dateToString(date))}
+            </Text>
+            <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="spinner"
+                onChange={(_: unknown, d?: Date) => { if (d) setDate(d); }}
+                minimumDate={today}
+                maximumDate={maxDate}
+                locale="ko-KR"
+                textColor="#ffffff"
+                style={{ height: 200 }}
+              />
+            </View>
+          </>
+        )
       )}
     </StepLayout>
   );

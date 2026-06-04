@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import StepLayout from './StepLayout';
 import QuestionTitle from './QuestionTitle';
+import AndroidDatePicker from '../common/AndroidDatePicker';
 
 function stringToDate(s: string): Date {
   const d = s.replace(/\D/g, '');
@@ -59,25 +60,38 @@ export default function Step02Birth() {
     <StepLayout step={2} canNext={selected} onNext={handleNext} onSkip={() => { update({ birthDate: '' }); router.push('/survey/3'); }} onSave={() => { if (selected) update({ birthDate: dateToString(date) }); }}>
       <QuestionTitle>생년월일을 알려주세요</QuestionTitle>
 
-      {selected && (
-        <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
-          {displayDate(dateToString(date))}
-        </Text>
-      )}
-
-      <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
-        <DateTimePicker
+      {Platform.OS === 'android' ? (
+        <AndroidDatePicker
           value={date}
-          mode="date"
-          display="spinner"
-          onChange={handleChange}
-          maximumDate={maxDate}
+          hasValue={selected}
+          placeholder="생년월일 선택"
+          onChange={(d) => { setDate(d); setSelected(true); }}
           minimumDate={minDate}
-          locale="ko-KR"
-          textColor="#ffffff"
-          style={{ height: 200 }}
+          maximumDate={maxDate}
         />
-      </View>
+      ) : (
+        <>
+          {selected && (
+            <Text style={{ color: '#3D5BF6', fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+              {displayDate(dateToString(date))}
+            </Text>
+          )}
+
+          <View style={{ backgroundColor: '#1a1a1a', borderRadius: 16, overflow: 'hidden' }}>
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="spinner"
+              onChange={handleChange}
+              maximumDate={maxDate}
+              minimumDate={minDate}
+              locale="ko-KR"
+              textColor="#ffffff"
+              style={{ height: 200 }}
+            />
+          </View>
+        </>
+      )}
     </StepLayout>
   );
 }
