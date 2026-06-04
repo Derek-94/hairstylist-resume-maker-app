@@ -1,5 +1,8 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import { ResumeData, CAREER_LABELS } from '../../types/resume';
+
+// Android만 폰트를 살짝 줄인다 (iOS는 FS=1 → 기존 값과 완전 동일).
+const FS = Platform.OS === 'android' ? 0.85 : 1;
 
 function chunk<T>(arr: T[], size: number): T[][] {
   return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
@@ -26,7 +29,7 @@ const S = StyleSheet.create({
     marginVertical: 20,
   },
   sectionLabel: {
-    fontSize: 10,
+    fontSize: 10 * FS,
     fontWeight: '700',
     color: '#aaa',
     letterSpacing: 1.5,
@@ -34,14 +37,14 @@ const S = StyleSheet.create({
     marginBottom: 10,
   },
   bodyText: {
-    fontSize: 14,
+    fontSize: 14 * FS,
     color: '#222',
-    lineHeight: 22,
+    lineHeight: 22 * FS,
   },
   metaText: {
-    fontSize: 13,
+    fontSize: 13 * FS,
     color: '#666',
-    lineHeight: 20,
+    lineHeight: 20 * FS,
   },
 });
 
@@ -84,10 +87,10 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
 
           {/* Name + meta — bottom-aligned */}
           <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Text style={{ fontSize: 9, color: '#aaa', letterSpacing: 1.5, fontWeight: '600', marginBottom: 2 }}>
+            <Text style={{ fontSize: 9 * FS, color: '#aaa', letterSpacing: 1.5, fontWeight: '600', marginBottom: 2 }}>
               이력서
             </Text>
-            <Text style={{ fontSize: 20, fontWeight: '800', color: '#111', letterSpacing: -0.5, marginBottom: 4 }}>
+            <Text style={{ fontSize: 20 * FS, fontWeight: '800', color: '#111', letterSpacing: -0.5, marginBottom: 4 }}>
               {data.name || '이름'}
             </Text>
             {data.birthDate && (
@@ -108,7 +111,7 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 4 }}>
               {data.skills.map(skill => (
                 <View key={skill} style={{ paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999, borderWidth: 1, borderColor: '#ddd' }}>
-                  <Text style={{ fontSize: 12, color: '#333' }}>{skill}</Text>
+                  <Text style={{ fontSize: 12 * FS, color: '#333' }}>{skill}</Text>
                 </View>
               ))}
             </View>
@@ -166,7 +169,7 @@ export default function ResumePreview({ data, pageRef, portfolioRef }: Props) {
         {data.introduction.trim().length > 0 && (
           <>
             <Text style={S.sectionLabel}>자기소개</Text>
-            <Text style={[S.bodyText, { lineHeight: 24 }]}>{data.introduction}</Text>
+            <Text style={[S.bodyText, { lineHeight: 24 * FS }]}>{data.introduction}</Text>
           </>
         )}
       </View>

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Linking } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Linking, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useResumeStore } from '../src/store/resume';
@@ -15,7 +15,7 @@ type Action = 'pdf' | 'image' | 'print';
 
 const ACTIONS: { key: Action; label: string; icon: string; sub: string }[] = [
   { key: 'image', label: '이미지',   icon: '🖼',  sub: '사진 앱 저장' },
-  { key: 'pdf',   label: 'PDF',      icon: '📄',  sub: '저장·공유' },
+  { key: 'pdf',   label: 'PDF',      icon: '📄',  sub: '저장/공유' },
   { key: 'print', label: '인쇄',     icon: '🖨',  sub: 'AirPrint' },
 ];
 
@@ -94,7 +94,7 @@ export default function Preview() {
     <View style={{ flex: 1, backgroundColor: '#e8e8e8' }}>
       {/* Header */}
       <View style={{
-        paddingTop: insets.top,
+        paddingTop: insets.top + (Platform.OS === 'android' ? 14 : 0),
         backgroundColor: '#0f0f0f',
         flexDirection: 'row',
         alignItems: 'center',
@@ -158,9 +158,9 @@ export default function Preview() {
               <ActivityIndicator color="#fff" size="small" />
             ) : (
               <>
-                <Text style={{ fontSize: 17 }}>{icon}</Text>
-                <Text style={{ color: key === 'pdf' ? '#fff' : '#ccc', fontSize: 12, fontWeight: '600' }}>{label}</Text>
-                <Text style={{ color: key === 'pdf' ? 'rgba(255,255,255,0.7)' : '#555', fontSize: 10 }}>{sub}</Text>
+                <Text style={{ fontSize: Platform.OS === 'android' ? 14 : 17 }}>{icon}</Text>
+                <Text numberOfLines={1} style={{ alignSelf: 'stretch', textAlign: 'center', color: key === 'pdf' ? '#fff' : '#ccc', fontSize: Platform.OS === 'android' ? 10 : 12, fontWeight: '600' }}>{label}</Text>
+                <Text numberOfLines={1} style={{ alignSelf: 'stretch', textAlign: 'center', color: key === 'pdf' ? 'rgba(255,255,255,0.7)' : '#555', fontSize: Platform.OS === 'android' ? 8 : 10 }}>{sub}</Text>
               </>
             )}
           </TouchableOpacity>
