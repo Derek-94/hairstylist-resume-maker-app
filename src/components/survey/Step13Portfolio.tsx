@@ -19,6 +19,10 @@ export default function Step13Portfolio() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: crop,
+      // aspect는 Android 전용(iOS는 무시하고 항상 1:1 정사각형).
+      // 빠져 있으면 Android 시스템 크롭이 자유 비율이 되어 긴 사진에서
+      // 확인 버튼이 시스템 바에 가려 터치가 안 된다. 1:1로 고정한다.
+      aspect: [1, 1],
       quality: 0.9,
     });
     setPicking(false);
