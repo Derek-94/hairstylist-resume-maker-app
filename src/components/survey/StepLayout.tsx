@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useResumeStore } from '../../store/resume';
 import { track } from '../../utils/analytics';
-import { RefObject } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
 interface Props {
   step: number;
@@ -27,6 +27,23 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
   const insets = useSafeAreaInsets();
   const progress = step / total;
   const { isEditMode, setEditMode } = useResumeStore();
+
+  // Android만: edge-to-edge 모드에선 adjustResize가 창을 줄이지 않아
+  // 하단 네비게이션(뒤로/다음 버튼)이 키보드 뒤에 깔린다. 키보드 높이를
+  // 받아 그만큼 하단 패딩을 키워 버튼을 키보드 위로 띄운다(iOS의 padding
+  // behavior와 동일한 결과). iOS는 리스너를 등록하지 않아 kbHeight=0 →
+  // 기존 동작 그대로라 런타임 영향 없음.
+  const [kbHeight, setKbHeight] = useState(0);
+  useEffect(() => {
+    if (Platform.OS !== 'android') return;
+    // 다음 스텝으로 넘어올 때 키보드가 이미 떠 있으면 keyboardDidShow가
+    // 다시 울지 않으므로, 마운트 시 현재 키보드 높이를 직접 읽어 초기화한다.
+    const m = Keyboard.metrics?.();
+    if (m?.height) setKbHeight(m.height);
+    const showSub = Keyboard.addListener('keyboardDidShow', (e) => setKbHeight(e.endCoordinates.height));
+    const hideSub = Keyboard.addListener('keyboardDidHide', () => setKbHeight(0));
+    return () => { showSub.remove(); hideSub.remove(); };
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -91,7 +108,11 @@ export default function StepLayout({ step, total = 14, canNext, onNext, onSkip, 
       <View
         style={{
           paddingHorizontal: 24,
-          paddingBottom: insets.bottom + 16,
+          // Android: 키보드가 올라오면 버튼이 키보드 위에 오도록 띄운다.
+          // endCoordinates.height(kbHeight)는 edge-to-edge에서 시스템 내비
+          // 바를 포함하지 않으므로 insets.bottom을 더해 실제 가림 높이를
+          // 맞춘다(위 useEffect 참고). iOS는 kbHeight=0이라 영향 없음.
+          paddingBottom: kbHeight > 0 ? kbHeight + insets.bottom + 12 : insets.bottom + 16,
           paddingTop: 12,
           flexDirection: 'row',
           gap: 10,
