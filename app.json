@@ -3,7 +3,7 @@
     "name": "뚝딱이력서",
     "slug": "clipr",
     "scheme": "clipr",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "10",
+      "buildNumber": "11",
       "bundleIdentifier": "com.clipr.app"
     },
     "android": {
